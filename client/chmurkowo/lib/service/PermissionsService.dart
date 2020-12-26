@@ -10,7 +10,8 @@ class PermissionsService {
 
   List<Permission> neededPermissions = [
     Permission.location,
-    Permission.locationWhenInUse
+    Permission.locationWhenInUse,
+    Permission.camera,
   ];
 
   Future<bool> requestAllNeededPermissions() async {

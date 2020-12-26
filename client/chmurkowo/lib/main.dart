@@ -1,9 +1,11 @@
+import 'package:chmurkowo/Page/AddImagePage.dart';
 import 'package:chmurkowo/Page/SplashPage.dart';
 import 'package:flutter/material.dart';
 
 import 'Page/MapPage.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => SplashPage(),
         '/': (context) => MapPage(),
         //'/map': (context) => MapPage(),
+        '/add_image': (context) => AddImagePage()
       },
     );
   }

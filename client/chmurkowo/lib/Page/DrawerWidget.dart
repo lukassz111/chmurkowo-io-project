@@ -15,7 +15,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       children: [
         DrawerHeader(child: Text("Drawer header")),
         ListTile(
-          title: Text("list el"),
+          title: Text("Dodaj zdjęcie"),
+          onTap: () {
+            Navigator.of(context).pushNamed("/add_image");
+          },
         )
       ],
     ));

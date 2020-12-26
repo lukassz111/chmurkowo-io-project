@@ -1,3 +1,4 @@
+import 'package:chmurkowo/service/CameraService.dart';
 import 'package:chmurkowo/service/PermissionsService.dart';
 import 'package:flutter/material.dart';
 
@@ -35,5 +36,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     askForPermissions();
+    CameraService cameraService = new CameraService();
   }
 }
