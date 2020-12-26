@@ -1,3 +1,4 @@
+import 'package:chmurkowo/Page/SplashPage.dart';
 import 'package:flutter/material.dart';
 
 import 'Page/MapPage.dart';
@@ -28,7 +29,12 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MapPage(),
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => SplashPage(),
+        '/': (context) => MapPage(),
+        '/map': (context) => MapPage(),
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:chmurkowo/Widget/MapWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +14,22 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Mapa'),
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Mapa'),
+            automaticallyImplyLeading: false,
+          ),
+          body: MapWidget(),
+          floatingActionButton: FloatingActionButton(
+            child: IconButton(
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
-        body: MapWidget());
+        onWillPop: () async => false);
   }
 }
