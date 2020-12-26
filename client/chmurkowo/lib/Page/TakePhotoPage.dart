@@ -1,79 +1,92 @@
-import 'package:camera/camera.dart';
-import 'package:chmurkowo/service/CameraService.dart';
+import 'package:camerawesome/camerapreview.dart';
+import 'package:camerawesome/models/capture_modes.dart';
+import 'package:camerawesome/models/flashmodes.dart';
+import 'package:camerawesome/models/orientations.dart';
+import 'package:camerawesome/models/sensors.dart';
+import 'package:camerawesome/picture_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 class TakePhotoPage extends StatefulWidget {
   TakePhotoPage({Key key}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   @override
   _TakePhotoPageState createState() => _TakePhotoPageState();
 }
 
 class _TakePhotoPageState extends State<TakePhotoPage> {
-  CameraController cameraController;
-  CameraService cameraService;
-  Future<void> cameraControllerInitializer;
-  Widget preview = new Text("");
   @override
-  void initState() {
-    cameraService = new CameraService();
-    cameraController = new CameraController(
-        cameraService.BackCamera, ResolutionPreset.high,
-        enableAudio: false);
-    cameraControllerInitializer = cameraController.initialize();
-    //final camera = cameras.firstWhere(
-    //        (camera) => camera.lensDirection == CameraLensDirection.back);
-    //CameraController cameraController =
-    //new CameraController(camera, ResolutionPreset.ultraHigh);
-  }
+  void initState() {}
 
   @override
   void dispose() {
     super.dispose();
-    cameraController.dispose();
+    _switchFlash.dispose();
+    _zoom.dispose();
+    _sensor.dispose();
+    _captureMode.dispose();
+    _photoSize.dispose();
   }
 
+  ValueNotifier<CameraFlashes> _switchFlash = ValueNotifier(CameraFlashes.NONE);
+  ValueNotifier<double> _zoom = ValueNotifier(0.64);
+  ValueNotifier<Sensors> _sensor = ValueNotifier(Sensors.BACK);
+  ValueNotifier<CaptureModes> _captureMode = ValueNotifier(CaptureModes.PHOTO);
+  ValueNotifier<Size> _photoSize = ValueNotifier(null);
+  DeviceOrientation deviceOrientation = DeviceOrientation.portraitUp;
+  PictureController _pictureController = new PictureController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Zrób zdjęcie"),
-      ),
-      body: FutureBuilder<void>(
-        future: cameraControllerInitializer,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(cameraController);
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+      body: CameraAwesome(
+        testMode: false,
+        onPermissionsResult: (bool result) {},
+        selectDefaultSize: (List<Size> availableSizes) {
+          Size max = availableSizes.first;
+          for (var size in availableSizes) {
+            if (size.height > max.height) {
+              max = size;
+            }
           }
+          return max;
         },
-      ), // Th
+        onCameraStarted: () {},
+        onOrientationChanged: (CameraOrientations newOrientation) {
+          setState(() {
+            if (CameraOrientations.PORTRAIT_UP == newOrientation) {
+              deviceOrientation = DeviceOrientation.portraitUp;
+            } else if (CameraOrientations.PORTRAIT_DOWN == newOrientation) {
+              deviceOrientation = DeviceOrientation.portraitDown;
+            } else if (CameraOrientations.LANDSCAPE_LEFT == newOrientation) {
+              deviceOrientation = DeviceOrientation.landscapeLeft;
+            } else if (CameraOrientations.LANDSCAPE_RIGHT == newOrientation) {
+              deviceOrientation = DeviceOrientation.landscapeRight;
+            }
+          });
+        },
+        zoom: _zoom,
+        sensor: _sensor,
+        photoSize: _photoSize,
+        switchFlashMode: _switchFlash,
+        captureMode: _captureMode,
+        orientation: deviceOrientation,
+        fitted: false,
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera),
         onPressed: () async {
-          try {
-            await cameraControllerInitializer;
-            final picture = await cameraController.takePicture();
-            print(picture.path);
-          } catch (e) {
-            print(e);
-          }
+          final path = join(
+            (await getTemporaryDirectory()).path,
+            '${DateTime.now()}.png',
+          );
+          print(path);
+          await _pictureController.takePicture(path);
+          //TODO return this path
+          //TODO navigator pop out
         },
-      ), // is trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

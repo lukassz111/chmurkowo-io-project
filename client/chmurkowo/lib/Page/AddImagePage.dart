@@ -1,5 +1,4 @@
 import 'package:chmurkowo/Page/TakePhotoPage.dart';
-import 'package:chmurkowo/service/CameraService.dart';
 import 'package:flutter/material.dart';
 
 class AddImagePage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _AddImagePageState extends State<AddImagePage> {
                 label: Text("Zrób zdjęcie"))
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 
