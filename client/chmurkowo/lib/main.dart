@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MapPage(title: 'Flutter Demo Home Page'),
+      home: MapPage(),
     );
   }
 }
