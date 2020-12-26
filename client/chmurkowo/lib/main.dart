@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => SplashPage(),
         '/': (context) => MapPage(),
-        '/map': (context) => MapPage(),
+        //'/map': (context) => MapPage(),
       },
     );
   }
