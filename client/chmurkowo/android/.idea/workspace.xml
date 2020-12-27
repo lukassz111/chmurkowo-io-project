@@ -23,21 +23,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23518b5a-bbe8-4898-b45b-bc55093200ff" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Page/AddImagePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Page/AddImagePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Page/SplashPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Page/SplashPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Page/TakePhotoPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Page/TakePhotoPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/service/CameraService.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Redmi_4X_API_27]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -148,5 +142,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

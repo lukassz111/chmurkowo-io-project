@@ -10,7 +10,7 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    return new Drawer(
         child: ListView(
       children: [
         DrawerHeader(child: Text("Drawer header")),

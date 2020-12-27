@@ -20,7 +20,7 @@ class _MapPageState extends State<MapPage> {
             automaticallyImplyLeading: true,
           ),
           body: MapWidget(),
-          drawer: DrawerWidget(),
+          drawer: new DrawerWidget(),
           //floatingActionButton: FloatingActionButton(
           //  child: IconButton(
           //    icon: Icon(
