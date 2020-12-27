@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
+import 'package:uuid/uuid.dart';
 
 class MapWidget extends StatefulWidget {
   MapWidget({Key key}) : super(key: key);
@@ -31,7 +32,9 @@ class _MapWidgetState extends State<MapWidget> {
           height: 40.0,
           point: pin.position,
           builder: (ctx) => new Container(
-                child: FloatingActionButton(
+                child: new FloatingActionButton(
+                  heroTag:
+                      "hero_pin_${pin.position.latitude}_${pin.position.longitude}",
                   child: Icon(
                     Icons.place,
                     color: Colors.white,
@@ -56,6 +59,7 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var uuid = Uuid();
     var markers = buildMarkers(context);
     return FlutterMap(
       options: new MapOptions(
@@ -76,7 +80,9 @@ class _MapWidgetState extends State<MapWidget> {
                 color: Colors.black12,
                 borderStrokeWidth: 3),
             builder: (context, markers) {
-              return FloatingActionButton(
+              return new FloatingActionButton(
+                  heroTag:
+                      "hero_multipin_${uuid.v1().toString().toLowerCase()}",
                   child: Text(markers.length.toString()));
             })
         //new MarkerLayerOptions(markers: buildMarkers(context)),
