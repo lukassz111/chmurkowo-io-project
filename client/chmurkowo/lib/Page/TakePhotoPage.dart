@@ -81,10 +81,9 @@ class _TakePhotoPageState extends State<TakePhotoPage> {
             (await getTemporaryDirectory()).path,
             '${DateTime.now()}.png',
           );
-          print(path);
+          print("Picture saved to: $path");
           await _pictureController.takePicture(path);
-          //TODO return this path
-          //TODO navigator pop out
+          Navigator.of(context).pop(path);
         },
       ),
     );
