@@ -12,10 +12,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   static final Config config = Config(
-    tenant: '06649a0c-b8b6-45d2-9e90-8bea09372075',
-    clientId: '157be24f-b8a8-4b31-a000-469784d27b56',
+    tenant: 'da3eecb1-aaee-4bb5-ae8a-0caf64f9db36',
+    clientId: 'b20fc2e6-b026-4c44-9cad-59589abb5985',
     scope: 'openid profile offline_access',
-    redirectUri: 'https://login.live.com/oauth20_desktop.srf',
+    redirectUri: 'msauth://com.chmurkowo.chmurkowo/ga0RGNYHvNM5d0SLGQfpQWAPGJ8%3D',
   );
   final AadOAuth oauth = AadOAuth(config);
 
