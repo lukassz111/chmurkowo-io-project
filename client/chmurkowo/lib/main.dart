@@ -1,4 +1,5 @@
 import 'package:chmurkowo/Page/AddImagePage.dart';
+import 'package:chmurkowo/Page/LoginPage.dart';
 import 'package:chmurkowo/Page/SplashPage.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => SplashPage(),
         '/': (context) => MapPage(),
+        '/login': (context) => LoginPage(),
         //'/map': (context) => MapPage(),
         '/add_image': (context) => AddImagePage()
       },

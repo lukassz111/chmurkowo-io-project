@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
     PermissionsService permissionsService = new PermissionsService();
     bool allAllowed = await permissionsService.requestAllNeededPermissions();
     if (allAllowed) {
-      Navigator.of(context).pushReplacementNamed('/');
+      Navigator.of(context).pushReplacementNamed('/login'); //changed routing for testing
     } else {
       await askForPermissions();
     }
