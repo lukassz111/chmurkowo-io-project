@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chmurkowo/model/User.dart' as MyUser;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -19,6 +20,10 @@ class AuthService {
 
   UserCredential userCredential;
   String azureId;
+  MyUser.User get user {
+    return new MyUser.User(this.azureId, this.userCredential.user.displayName);
+  }
+
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();

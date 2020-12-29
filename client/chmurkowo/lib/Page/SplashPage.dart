@@ -1,3 +1,4 @@
+import 'package:chmurkowo/service/ApiService.dart';
 import 'package:chmurkowo/service/AuthService.dart';
 import 'package:chmurkowo/service/PermissionsService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,11 +32,13 @@ class _SplashPageState extends State<SplashPage> {
 
   Future doOnStart() async {
     AuthService authService = new AuthService();
+    ApiService apiService = new ApiService();
     bool allAllowed = false;
     while (allAllowed == false) {
       allAllowed = await askForPermissions();
     }
     await authService.signInWithGoogle();
+    await apiService.hello();
 
     if (allAllowed) {
       Navigator.of(context)
