@@ -1,4 +1,6 @@
+import 'package:chmurkowo/service/AuthService.dart';
 import 'package:chmurkowo/service/PermissionsService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -22,18 +24,29 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  Future askForPermissions() async {
+  Future<bool> askForPermissions() async {
     PermissionsService permissionsService = new PermissionsService();
-    bool allAllowed = await permissionsService.requestAllNeededPermissions();
+    return await permissionsService.requestAllNeededPermissions();
+  }
+
+  Future doOnStart() async {
+    AuthService authService = new AuthService();
+    bool allAllowed = false;
+    while (allAllowed == false) {
+      allAllowed = await askForPermissions();
+    }
+    await authService.signInWithGoogle();
+
     if (allAllowed) {
-      Navigator.of(context).pushReplacementNamed('/login'); //changed routing for testing
+      Navigator.of(context)
+          .pushReplacementNamed('/'); //changed routing for testing
     } else {
-      await askForPermissions();
+      Navigator.of(context).pop();
     }
   }
 
   @override
   void initState() {
-    askForPermissions();
+    doOnStart();
   }
 }

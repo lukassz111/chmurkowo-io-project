@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "399984371319",
+    "project_id": "chmurkowo",
+    "storage_bucket": "chmurkowo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399984371319:android:bb67cd886311cbcf020872",
+        "android_client_info": {
+          "package_name": "com.chmurkowo.chmurkowo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399984371319-d0bt72rqakos5gb3sha14oipuaqbfqio.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chmurkowo.chmurkowo",
+            "certificate_hash": "73c91c79172e1f7c6f16d6e2d0d6da0daa4b81f7"
+          }
+        },
+        {
+          "client_id": "399984371319-ga11scarij32aeu0bc2e83ltm5rt99pd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCormd5TfpvngSnbKbuVn2m9zo-HuE4zPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399984371319-ga11scarij32aeu0bc2e83ltm5rt99pd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

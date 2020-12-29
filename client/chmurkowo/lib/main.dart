@@ -1,12 +1,15 @@
 import 'package:chmurkowo/Page/AddImagePage.dart';
-import 'package:chmurkowo/Page/LoginPage.dart';
+import 'package:chmurkowo/Page/GoogleLoginPage.dart';
 import 'package:chmurkowo/Page/SplashPage.dart';
+import 'package:chmurkowo/service/AuthService.dart';
 import 'package:flutter/material.dart';
 
 import 'Page/MapPage.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AuthService authService = new AuthService();
+  await authService.initialize();
   runApp(MyApp());
 }
 
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => SplashPage(),
         '/': (context) => MapPage(),
-        '/login': (context) => LoginPage(),
+        '/login': (context) => GoogleLoginPage(),
         //'/map': (context) => MapPage(),
         '/add_image': (context) => AddImagePage()
       },
