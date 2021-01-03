@@ -56,7 +56,6 @@ class ApiService {
     var response = await this
         .post(this.getFunctionUrl(methodHello), this.authService.user.toMap());
     Map<String, dynamic> data = json.decode(response.body);
-    print("data: ${data.toString()} ${data.runtimeType}");
     if (data.containsKey('meta')) {
       Map<String, dynamic> data_meta = data['meta'];
       if (data_meta.containsKey('success')) {
