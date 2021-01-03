@@ -9,7 +9,9 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     const displayName = Request.getParamNullable<string>(req,'displayName')
     await DatabaseConnection.initialize();
     if(id == null && displayName == null) {
-        ResponseCreator.createsErrorResponse({},'required').setResponse(context)
+        let responseCreator = ResponseCreator.createsErrorResponse({},'required')
+        responseCreator.responseData.meta.info_request_body = JSON.stringify("id: "+id+" displayName: "+displayName)
+        responseCreator.setResponse(context)
         return
     }
     

@@ -1,6 +1,7 @@
 import 'package:chmurkowo/service/ApiService.dart';
 import 'package:chmurkowo/service/AuthService.dart';
 import 'package:chmurkowo/service/PermissionsService.dart';
+import 'package:chmurkowo/service/PrefsService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -33,13 +34,19 @@ class _SplashPageState extends State<SplashPage> {
   Future doOnStart() async {
     AuthService authService = new AuthService();
     ApiService apiService = new ApiService();
+    PrefsService prefsService = new PrefsService();
     bool allAllowed = false;
     while (allAllowed == false) {
       allAllowed = await askForPermissions();
     }
     await authService.signInWithGoogle();
-    //await apiService.hello();
-
+    bool userHelloDone = await prefsService.userHelloDone();
+    if (!userHelloDone) {
+      userHelloDone = await apiService.hello();
+      await prefsService.userHelloDone(value: userHelloDone);
+    }
+    userHelloDone = await prefsService.userHelloDone();
+    //TODO if not done then exit app
     if (allAllowed) {
       Navigator.of(context)
           .pushReplacementNamed('/'); //changed routing for testing

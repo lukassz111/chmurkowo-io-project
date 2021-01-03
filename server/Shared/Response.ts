@@ -1,7 +1,8 @@
 import { Context } from "@azure/functions";
 export interface ResponseMeta {
     success: boolean,
-    info?: string
+    info?: string,
+    info_request_body?: string
 }
 export interface Response {
     data: any,
