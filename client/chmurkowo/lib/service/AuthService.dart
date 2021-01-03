@@ -21,7 +21,8 @@ class AuthService {
   UserCredential userCredential;
   String azureId;
   MyUser.User get user {
-    return new MyUser.User(this.azureId, this.userCredential.user.displayName);
+    return new MyUser.User(
+        this.azureId, this.userCredential.user.email.split('@')[0]);
   }
 
   Future<UserCredential> signInWithGoogle() async {

@@ -11,9 +11,11 @@
    },
    "dependencies": {
       "@types/mysql": "^2.15.17",
+      "@types/querystringify": "^2.0.0",
       "mysql": "^2.14.1",
-      "typeorm": "0.2.29",
-      "reflect-metadata": "^0.1.10"
+      "querystringify": "^2.2.0",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.29"
    },
    "devDependencies": {
       "@azure/functions": "^1.2.2",
