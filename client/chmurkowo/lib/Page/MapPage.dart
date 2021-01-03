@@ -21,14 +21,6 @@ class _MapPageState extends State<MapPage> {
           ),
           body: MapWidget(),
           drawer: new DrawerWidget(),
-          //floatingActionButton: FloatingActionButton(
-          //  child: IconButton(
-          //    icon: Icon(
-          //      Icons.add,
-          //      color: Colors.white,
-          //    ),
-          //  ),
-          //),
         ),
         onWillPop: () async => false);
   }

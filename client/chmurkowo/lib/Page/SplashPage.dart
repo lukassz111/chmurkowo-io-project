@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
       allAllowed = await askForPermissions();
     }
     await authService.signInWithGoogle();
-    await apiService.hello();
+    //await apiService.hello();
 
     if (allAllowed) {
       Navigator.of(context)

@@ -10,7 +10,7 @@ class ApiService {
     return _instance;
   }
 
-  static const domainName = "chmurkowo.azurewebsites.net";
+  static const domainName = "chmurkowo.aszurewebsite.net";
   static const key =
       "code=lGt5C2sI49Q5rW4qRK9TpDK2ybnGXkalckkiCAdzKw1F0cVzgfearg==&clientId=client";
   static const methodHello = "Hello";

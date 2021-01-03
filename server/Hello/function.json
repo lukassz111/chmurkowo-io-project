@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/Hello/index.js"
+  "scriptFile": "../build/Hello/index.js"
 }

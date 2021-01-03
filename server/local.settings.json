@@ -1,0 +1,13 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=storageaccountchmur9085;AccountKey=Wjbho51RlOZcxVk2aRypikHN0QMGiVWNGgx50DrzoCWxMBw8pLsEd423kxyDj2vKfXA3ez1NYA55iuF1s4zRuA==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "FUNCTIONS_EXTENSION_VERSION": "~3",
+    "WEBSITE_NODE_DEFAULT_VERSION": "~12",
+    "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "DefaultEndpointsProtocol=https;AccountName=storageaccountchmur9085;AccountKey=Wjbho51RlOZcxVk2aRypikHN0QMGiVWNGgx50DrzoCWxMBw8pLsEd423kxyDj2vKfXA3ez1NYA55iuF1s4zRuA==;EndpointSuffix=core.windows.net",
+    "WEBSITE_CONTENTSHARE": "chmurkowo83f2",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "123ffc88-603b-4ceb-91b7-f24675178772",
+    "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=123ffc88-603b-4ceb-91b7-f24675178772;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/"
+  }
+}

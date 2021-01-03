@@ -1,0 +1,25 @@
+{
+   "type": "mysql",
+   "host": "chmurkowo.mysql.database.azure.com",
+   "port": 3306,
+   "username": "login",
+   "password": "$9e3f167d14940977488faf865048eb15",
+   "database": "chmurkowo",
+   "ssl": true,
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "typeorm/entity/**/*.ts"
+   ],
+   "migrations": [
+      "typeorm/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "typeorm/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "typeorm/entity",
+      "migrationsDir": "typeorm/migration",
+      "subscribersDir": "typeorm/subscriber"
+   }
+}
