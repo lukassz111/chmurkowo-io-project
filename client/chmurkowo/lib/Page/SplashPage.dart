@@ -1,5 +1,6 @@
 import 'package:chmurkowo/service/ApiService.dart';
 import 'package:chmurkowo/service/AuthService.dart';
+import 'package:chmurkowo/service/LocationService.dart';
 import 'package:chmurkowo/service/PermissionsService.dart';
 import 'package:chmurkowo/service/PrefsService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,6 +47,12 @@ class _SplashPageState extends State<SplashPage> {
       await prefsService.userHelloDone(value: userHelloDone);
     }
     userHelloDone = await prefsService.userHelloDone();
+
+    LocationService locationService = new LocationService();
+    //await apiService.addPin(
+    //    '/data/data/com.chmurkowo.chmurkowo/cache/2021-01-03 09:42:38.337355.png',
+    //    await locationService.currentLocation());
+
     //TODO if not done then exit app
     if (allAllowed) {
       Navigator.of(context)

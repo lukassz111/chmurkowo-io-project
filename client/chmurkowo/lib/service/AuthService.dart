@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:chmurkowo/model/User.dart' as MyUser;
+import 'package:chmurkowo/model/GoogleUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,14 +18,26 @@ class AuthService {
     await Firebase.initializeApp();
   }
 
-  UserCredential userCredential;
-  String azureId;
-  MyUser.User get user {
-    return new MyUser.User(
-        this.azureId, this.userCredential.user.email.split('@')[0]);
+  UserCredential _userCredential;
+  String get googleId {
+    return md5
+        .convert(utf8.encode(this._userCredential.user.uid.toString()))
+        .toString();
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  String get email {
+    return _userCredential.user.email;
+  }
+
+  String get displayName {
+    return _userCredential.user.displayName;
+  }
+
+  GoogleUser get user {
+    return new GoogleUser(googleId, displayName, email);
+  }
+
+  Future<GoogleUser> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -38,11 +50,8 @@ class AuthService {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     ); // Once signed in, return the UserCredential
-    this.userCredential =
+    this._userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    this.azureId = md5
-        .convert(utf8.encode(this.userCredential.user.uid.toString()))
-        .toString();
-    return this.userCredential;
+    return this.user;
   }
 }

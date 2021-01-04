@@ -6,7 +6,10 @@
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.preDeployTask": "npm prune",
     "cSpell.words": [
+        "Inno",
         "chmurkowo",
-        "typeorm"
+        "tinyint",
+        "typeorm",
+        "varchar"
     ]
 }

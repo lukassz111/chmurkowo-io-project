@@ -19,9 +19,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         DrawerHeader(
             child: Container(
               child: ListTile(
-                title: Text(authService.userCredential.user.displayName,
+                title: Text(authService.user.displayName,
                     style: TextStyle(color: Colors.white)),
-                subtitle: Text(authService.userCredential.user.email,
+                subtitle: Text(authService.user.email,
                     style: TextStyle(color: Colors.white)),
               ),
               alignment: Alignment.bottomLeft,

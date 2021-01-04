@@ -3,9 +3,21 @@ import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn} from "typeorm";
 @Entity()
 export class User {
 
-    @PrimaryColumn()
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number
 
     @Column()
-    displayName: string;
+    googleId: string
+
+    @Column()
+    displayName: string
+
+    @Column()
+    score: number
+
+    @Column()
+    premium: boolean
+    
+    @Column()
+    email: string
 }
