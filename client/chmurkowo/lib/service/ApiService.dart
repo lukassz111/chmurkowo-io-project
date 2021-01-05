@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:latlong/latlong.dart';
 import 'package:chmurkowo/service/AuthService.dart';
@@ -53,12 +54,14 @@ class ApiService {
 
   Future<http.StreamedResponse> postFile(
       String url, Map<String, String> data, String filePath) async {
+    var fBytes = await File(filePath).readAsBytes();
+    String fBase64 = base64Encode(fBytes);
     var req = new http.MultipartRequest("POST", Uri.parse(url));
-    req.files.add(await http.MultipartFile.fromPath('file', filePath));
     req.headers.addEntries(requestHeaders().entries);
     data.forEach((key, value) {
       req.fields[key] = value;
     });
+    req.fields['file'] = fBase64;
     var res = await req.send();
     return res;
   }
