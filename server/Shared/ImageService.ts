@@ -7,7 +7,7 @@ class _ImageService {
     private get FileExtension(): string {
         return '.png'
     }
-    private formatPath(filename): string {
+    public formatPath(filename): string {
         let p = this.BaseDir + filename + this.FileExtension
         return p
     }

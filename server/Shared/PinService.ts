@@ -1,10 +1,11 @@
+import { Pin } from "../typeorm/entity/Pin"
 import { User } from "../typeorm/entity/User"
 import { DatabaseConnection } from "./DatabaseConnection"
 import { ImageService } from "./ImageService"
 import { ServiceResult } from "./ServiceResult"
 import { Util } from './Util'
 class _PinService {
-    public async addPin(user: User, lat: string, long: string, base64dataOfImage: string): ServiceResult {
+    public async addPin(user: User, lat: string, long: string, base64dataOfImage: string): Promise<ServiceResult> {
         let id = user.id.toString()
         let hashLat = Util.hash(lat.toString())
         let hashLong = Util.hash(long.toString())
@@ -26,9 +27,18 @@ class _PinService {
         }
         user.lastPhotoTimestamp = currentTimestamp
         user.resetPhotosLeft()
-        DatabaseConnection.Connection.getRepository(User).save(user)
+
+
+        let pin = new Pin()
+        pin.setDefault(parseFloat(lat),parseFloat(long),ImageService.formatPath(filename),user)
+        await DatabaseConnection.Connection.getRepository(Pin).save(pin)
+        await DatabaseConnection.Connection.getRepository(User).save(user)
 
         ImageService.save(base64dataOfImage,filename)
+        return {
+            result: true,
+            info: "ok"
+        } 
     }
 }
 export const PinService = new _PinService()

@@ -1,6 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ResponseCreator } from "../Shared/Response";
-import * as fs from 'fs'
 import { UserService } from "../Shared/UserService";
 import { PinService } from "../Shared/PinService";
 
@@ -34,9 +33,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         ResponseCreator.createsErrorResponse().setResponse(context)
         return
     }
-    let hash = (data: string|Buffer): string => {
-        return crypto.createHash('md5').update(data).digest('hex')
-    } 
 
     let user = await UserService.getUserByGoogleId(googleId)
     if(user == null) {
