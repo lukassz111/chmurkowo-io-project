@@ -1,0 +1,68 @@
+[
+{
+	"lat": 51.741850,
+	"long":	19.485071,
+	"src": "../photos/chmura1",
+	"comments":["Piekna chmura","Ale super pogoda","Pozdrawiam z rodzinka"]
+},
+{
+	"lat": 51.779286, 
+	"long":	19.480503,
+	"src":"../photos/chmura2",
+	"comments":["No brawo","Ale super pogoda","Jebac PiS"]
+},
+{
+	"lat": 51.759286,
+	"long":	19.485071,
+	"src":"../photos/chmura4",
+	"comments":["Wow","Ale brzydka chmura","Pozdrawiam z rodzinka"]
+},
+{
+	"lat": 51.756691,
+	"long":	19.454744,
+	"src":"../photos/chmura5",
+	"comments":["Papieza widze w tej chmurze, kiedys mi sie tak objawil","Ale super chmura","No brawo brawo","No eleganckoo","No kurde brawo"]
+},
+{
+	"lat": 51.737135, 
+	"long":	19.432492,
+	"src":"../photos/chmura6",
+	"comments":["Papieza widze w tej chmurze, kiedys mi sie tak objawil","Elegancko"]
+},
+{
+	"lat": 51.727115,
+	"long":	 19.436467,
+	"src":"../photos/chmura1",
+	"comments":["Piekna chmura","Ale super pogoda","Pozdrawiam z rodzinka","Pozdrawiam z wujem","Pozdrawiam z matka","Pozdrawiam z rodzinka","Pozdrawiam z siostra","Pozdrawiam z rodzinka","Pozdrawiam z Ziobrem","Pozdrawiam z rodzinka","Pozdrawiam z psem"]
+},
+{
+	"lat": 51.714135, 
+	"long":	19.466413,
+	"src":"../photos/chmura2",
+	"comments":["Piekna chmura","Ale super pogoda","Pozdrawiam z rodzinka"]
+},
+{
+	"lat": 51.711858, 
+	"long":	19.541251,
+	"src":"../photos/chmura3",
+	"comments":["Fatalnie","Okropnie","Obrzydliwie","Ide po budyn"]
+},
+{
+	"lat": 51.799882, 
+	"long":	19.409915,
+	"src":"../photos/chmura4",
+	"comments":[]
+},
+{
+	"lat": 51.761850,
+	"long":	19.411071,
+	"src":"../photos/chmura5",
+	"comments":["Fajna masz morde","Ale okropienstwo"]
+},
+{
+	"lat": 51.777850,
+	"long":	19.402071,
+	"src":"../photos/chmura6",
+	"comments":["Okej, zaszczep sie, ale jesli bedziesz chcial, zebym ja sie KURWA zaszczepil, to cie kurwa znajde i ci leb odpierdole bagnetem moim francuskim","Wojtek, sasiedzi","Ale super pogoda","Pozdrawiam z rodzinka"]
+}
+]
