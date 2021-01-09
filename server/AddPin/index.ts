@@ -1,7 +1,8 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ResponseCreator } from "../Shared/Response";
 import * as fs from 'fs'
-import * as crypto from 'crypto'
+import { UserService } from "../Shared/UserService";
+import { PinService } from "../Shared/PinService";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     console.log("req")
@@ -36,18 +37,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     let hash = (data: string|Buffer): string => {
         return crypto.createHash('md5').update(data).digest('hex')
     } 
-    let hashGoogleId = hash(googleId.toString())
-    let hashLat = hash(position_lat.toString())
-    let hashLong = hash(position_long.toString())
-    let hashPosition = hash(hashLat+hashLong)
-    let hashImage = hash(buffer)
-    let filename = 'img_'+hash(hashGoogleId+hashImage+hashPosition)+'.png'
-    console.log(filename)
-    fs.writeFile(filename,file,'base64',(err)=>{
-        if(err != null && err != undefined) {
-            console.error(err)
-        }
-    })
+
+    let user = await UserService.getUserByGoogleId(googleId)
+    if(user == null) {
+        ResponseCreator.createsErrorResponse().setResponse(context)
+        return
+    }
+    let result = await PinService.addPin(user,position_lat,position_long,file)
     
     context.res = {
         // status: 200, /* Defaults to 200 */

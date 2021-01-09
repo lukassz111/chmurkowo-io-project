@@ -19,11 +19,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     let x = await DatabaseConnection.Connection.getRepository(User).createQueryBuilder().select().where("id = '"+googleId+"'").getMany()
     if(x.length < 1) {
         let user = new User()
-        user.displayName = displayName 
-        user.googleId = googleId
-        user.email = email
-        user.score = 0
-        user.premium = false;
+        user.setDefault(googleId,displayName,email)
         await DatabaseConnection.Connection.getRepository(User).save(user)
         ResponseCreator.createsSuccessResponse().setResponse(context)
         return

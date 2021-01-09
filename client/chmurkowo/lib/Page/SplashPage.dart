@@ -49,9 +49,9 @@ class _SplashPageState extends State<SplashPage> {
     userHelloDone = await prefsService.userHelloDone();
 
     LocationService locationService = new LocationService();
-    //await apiService.addPin(
-    //    '/data/data/com.chmurkowo.chmurkowo/cache/2021-01-03 09:42:38.337355.png',
-    //    await locationService.currentLocation());
+    await apiService.addPin(
+        '/data/data/com.chmurkowo.chmurkowo/cache/2021-01-05 16:02:29.873120.png',
+        await locationService.currentLocation());
 
     //TODO if not done then exit app
     if (allAllowed) {
