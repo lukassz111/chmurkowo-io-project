@@ -7,9 +7,7 @@ export function getParam<T>(request: HttpRequest,paramName: string, defaultValue
     }
     let body = request.body
     let objBody = qs.parse(unescape(body))
-    console.log(objBody);
     let value = objBody[paramName]
-    console.log("p "+paramName +" = "+value)
     if(value == undefined || value == null) {
         return defaultValue
     } 

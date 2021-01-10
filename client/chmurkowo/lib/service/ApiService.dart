@@ -15,11 +15,11 @@ class ApiService {
   static const azureDomainName = "chmurkowo.azurewebsites.net";
   static const localDomainName = "192.168.1.183:7071";
   static get protocol {
-    return "http";
+    return "https";
   }
 
   static get domainName {
-    return ApiService.localDomainName;
+    return ApiService.azureDomainName;
   }
 
   static const key = "";

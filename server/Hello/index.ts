@@ -3,10 +3,12 @@ import { DatabaseConnection } from "../Shared/DatabaseConnection";
 import { ResponseCreator } from "../Shared/Response"
 import * as Request from '../Shared/Request'
 import { User } from "../typeorm/entity/User";
+import { UserService } from "../Shared/UserService";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     const googleId = Request.getParamNullable<string>(req,'googleId')
     const email = Request.getParamNullable<string>(req,'email')
+    console.log("Hello: "+email)
     const displayName = Request.getParamNullable<string>(req,'displayName')
     await DatabaseConnection.initialize();
     if(googleId == null && displayName == null && email == null) {
@@ -16,15 +18,15 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return
     }
     
-    let x = await DatabaseConnection.Connection.getRepository(User).createQueryBuilder().select().where("id = '"+googleId+"'").getMany()
-    if(x.length < 1) {
+    let x = await UserService.getUserByGoogleId(googleId)
+    if(x == null) {
         let user = new User()
         user.setDefault(googleId,displayName,email)
         await DatabaseConnection.Connection.getRepository(User).save(user)
         ResponseCreator.createsSuccessResponse().setResponse(context)
         return
     }
-    else if(x[0].googleId == googleId && x[0].email == email) {
+    else if(x.googleId == googleId && x.email == email) {
         ResponseCreator.createsSuccessResponse().setResponse(context)
         return
     }

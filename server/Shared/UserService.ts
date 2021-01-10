@@ -3,7 +3,10 @@ import { DatabaseConnection } from "./DatabaseConnection";
 
 class _UserService {
     public async getUserByGoogleId(googleId: string): Promise<User|null> {
-        let users = await DatabaseConnection.Connection.getRepository(User).createQueryBuilder().select().where("id = '"+googleId+"'").getMany()
+        await DatabaseConnection.initialize()
+        console.log(await DatabaseConnection.Connection.getRepository(User).createQueryBuilder().select().where("googleId = '"+googleId+"'").getQuery())
+        let users = await DatabaseConnection.Connection.getRepository(User).createQueryBuilder().select().where("googleId = '"+googleId+"'").getMany()
+        console.log(users)
         if(users.length > 0) {
             return users[0]
         }
