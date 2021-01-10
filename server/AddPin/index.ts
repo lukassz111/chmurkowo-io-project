@@ -4,7 +4,6 @@ import { UserService } from "../Shared/UserService";
 import { PinService } from "../Shared/PinService";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    console.log("req")
     let contentType = req.headers['content-type']
     if(contentType == null || contentType == undefined) {
         ResponseCreator.createsErrorResponse().setResponse(context)
@@ -36,7 +35,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     let user = await UserService.getUserByGoogleId(googleId)
     if(user == null) {
-        ResponseCreator.createsErrorResponse().setResponse(context)
+        ResponseCreator.createsErrorResponse({},"user do not exist").setResponse(context)
         return
     }
     let result = await PinService.addPin(user,position_lat,position_long,file)

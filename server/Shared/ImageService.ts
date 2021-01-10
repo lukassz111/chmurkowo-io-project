@@ -1,6 +1,10 @@
 import * as fs from 'fs'
 
 class _ImageService {
+    public constructor() {
+        if(!fs.existsSync(this.BaseDir))
+            fs.mkdirSync(this.BaseDir)
+    }
     private get BaseDir(): string {
         return './data/'
     }

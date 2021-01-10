@@ -42,6 +42,8 @@ class _SplashPageState extends State<SplashPage> {
     }
     await authService.signInWithGoogle();
     bool userHelloDone = await prefsService.userHelloDone();
+    //Always do Hello function
+    userHelloDone = false;
     if (!userHelloDone) {
       userHelloDone = await apiService.hello();
       await prefsService.userHelloDone(value: userHelloDone);
