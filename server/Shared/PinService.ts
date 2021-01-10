@@ -39,5 +39,14 @@ class _PinService {
             info: "ok"
         } 
     }
+
+    public async getPinById(pinId: number): Promise<Pin|null> {
+        await DatabaseConnection.initialize()
+        let pins = await DatabaseConnection.Connection.getRepository(Pin).createQueryBuilder().select().where("id = "+pinId).getMany()
+        if(pins.length > 0) {
+            return pins[0]
+        }
+        return null
+    }
 }
 export const PinService = new _PinService()

@@ -26,5 +26,7 @@ class _ImageService {
         })
         */
     }
+
+    public 
 }
 export const ImageService = new _ImageService();

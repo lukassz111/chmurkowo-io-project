@@ -12,7 +12,7 @@ export class ResponseCreator {
     public static createsSuccessResponse(data: any = {}) {
         let responseCreator = new ResponseCreator()
         responseCreator.responseData = {
-            data: {},
+            data: data,
             meta: {
                 success: true
             }
@@ -22,7 +22,7 @@ export class ResponseCreator {
     public static createsErrorResponse(data: any = {},info: string|null = null) {
         let responseCreator = new ResponseCreator()
         responseCreator.responseData = {
-            data: {},
+            data: data,
             meta: {
                 success: false
             }
@@ -30,7 +30,7 @@ export class ResponseCreator {
         if(info != null) {
             responseCreator.responseData.meta.info = info
         }
-        return responseCreator;
+        return responseCreator; 
     }
     public status: number = 200;
     public responseData: Response = {
