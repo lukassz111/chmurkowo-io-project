@@ -6,7 +6,7 @@ import { ImageService } from "./ImageService"
 import { ServiceResult } from "./ServiceResult"
 import { Util } from './Util'
 class _PinService {
-    public async addPin(user: User, lat: string, long: string, base64dataOfImage: string): Promise<ServiceResult> {
+    public async addPin(user: User, lat: string, long: string, base64dataOfImage: string): Promise<ServiceResult<number>> {
         let initDb = DatabaseConnection.initialize()
         let id = user.id.toString()
         let hashLat = Util.hash(lat.toString())
@@ -30,12 +30,13 @@ class _PinService {
         await initDb;
         let pin = new Pin()
         pin.setDefault(parseFloat(lat),parseFloat(long),ImageService.formatPath(filename),user)
-        await DatabaseConnection.Connection.getRepository(Pin).save(pin)
+        let insertedPin = await DatabaseConnection.Connection.getRepository(Pin).save(pin)
         await DatabaseConnection.Connection.getRepository(User).save(user)
 
         ImageService.save(base64dataOfImage,filename)
         return {
             result: true,
+            value: insertedPin.id,
             info: "ok"
         } 
     }

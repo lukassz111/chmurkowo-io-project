@@ -1,4 +1,5 @@
 import 'package:chmurkowo/Page/TakePhotoPage.dart';
+import 'package:chmurkowo/service/ApiService.dart';
 import 'package:chmurkowo/service/LocationService.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
@@ -15,12 +16,21 @@ class _AddImagePageState extends State<AddImagePage> {
   String pathToImage = null;
   LatLng location = null;
   LocationService locationService = new LocationService();
+  ApiService apiService = new ApiService();
 
   Function() callbackSubmit = null;
 
   void callbackSubmitWhenValid() {
-    //TODO implemnet send to cloud
-    Navigator.of(context).pop();
+    LocationService locationService = new LocationService();
+    this.callbackSubmit = null;
+    apiService.addPin(this.pathToImage, this.location).then((pinId) {
+      var success = (pinId == null ? false : true);
+      if (success) {
+        Navigator.of(context).pop();
+      } else {
+        Navigator.of(context).pushReplacementNamed('/error_wher_add_image');
+      }
+    });
   }
 
   void valid() {
@@ -75,7 +85,7 @@ class _AddImagePageState extends State<AddImagePage> {
     x = ListTile(
       title: Text("Lokalizacja"),
       subtitle: Text(location == null
-          ? "jeszcze nie wiem, proszę poczekaj"
+          ? "gdy zrobisz zdjęcie tutaj pojawią się kordynanty"
           : "${location.latitudeInRad} ${location.longitudeInRad}"),
       leading: locationProgress,
     );

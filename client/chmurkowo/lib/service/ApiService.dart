@@ -15,11 +15,11 @@ class ApiService {
   static const azureDomainName = "chmurkowo.azurewebsites.net";
   static const localDomainName = "192.168.1.183:7071";
   static get protocol {
-    return "https";
+    return "http";
   }
 
   static get domainName {
-    return ApiService.azureDomainName;
+    return ApiService.localDomainName;
   }
 
   static const key = "";
@@ -89,9 +89,21 @@ class ApiService {
     ]);
     var response = await this
         .postFile(this.getFunctionUrl(methodAddPin), data, pathToImage);
-    print(response.headers);
-    print(await response.stream.bytesToString());
-    return response;
+    var responseString = await response.stream.bytesToString();
+    Map<String, dynamic> responseData = json.decode(responseString);
+    print(responseData);
+    if (responseData.containsKey('meta') && responseData.containsKey('data')) {
+      Map<String, dynamic> meta = responseData['meta'];
+      Map<String, dynamic> data = responseData['data'];
+      if (meta.containsKey('success') && data.containsKey('pinId')) {
+        var success = meta['success'];
+        var pinId = data['pinId'];
+        if (success) {
+          return pinId;
+        }
+      }
+    }
+    return null;
   }
 
   ApiService._internal();

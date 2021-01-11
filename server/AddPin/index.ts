@@ -39,12 +39,12 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return
     }
     let result = await PinService.addPin(user,position_lat,position_long,file)
-    
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: "x"
-    };
-
+    console.log(result)
+    if( result.result ) {
+        ResponseCreator.createsSuccessResponse({"pinId": result.value }).setResponse(context)
+    } else {
+        ResponseCreator.createsErrorResponse({},"cannot add pin: "+result.info).setResponse(context)
+    }
 };
 
 export default httpTrigger;
