@@ -24,6 +24,17 @@ class _PinService {
                 info: "too small offset"
             }
         }
+
+        //imageUrl musi byc URLem do naszego zdjecia
+        const imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Shaki_waterfall.jpg';
+        let isACloud = _CognitiveService.recognizeImage(imageUrl);
+        if(!isACloud){
+            return {
+                result: false,
+                info: "not a cloud"
+            }
+        }
+
         user.lastPhotoTimestamp = currentTimestamp
         user.resetPhotosLeft()
         console.log('OK, CAN ADD PIN')
