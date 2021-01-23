@@ -23,12 +23,14 @@ class _AddImagePageState extends State<AddImagePage> {
   void callbackSubmitWhenValid() {
     LocationService locationService = new LocationService();
     this.callbackSubmit = null;
-    apiService.addPin(this.pathToImage, this.location).then((pinId) {
-      var success = (pinId == null ? false : true);
+    apiService.addPin(this.pathToImage, this.location).then((x) {
+      print(x);
+      var success = x['success'];
       if (success) {
         Navigator.of(context).pop();
       } else {
-        Navigator.of(context).pushReplacementNamed('/error_wher_add_image');
+        Navigator.of(context).pushReplacementNamed('/error_add_image',
+            arguments: ApiService.getMessageForErrorCode(x['error_code']));
       }
     });
   }

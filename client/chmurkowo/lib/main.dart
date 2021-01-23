@@ -1,6 +1,6 @@
 import 'package:chmurkowo/Page/AddImagePage.dart';
 import 'package:chmurkowo/Page/GoogleLoginPage.dart';
-import 'package:chmurkowo/Page/NonPremiumAddImage.dart';
+import 'package:chmurkowo/Page/ErrorAddImage.dart';
 import 'package:chmurkowo/Page/SplashPage.dart';
 import 'package:chmurkowo/service/AuthService.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => GoogleLoginPage(),
         //'/map': (context) => MapPage(),
         '/add_image': (context) => AddImagePage(),
-        '/error_wher_add_image': (context) => NonPremiumAddImage()
+        '/error_add_image': (context) => ErrorAddImage()
       },
     );
   }

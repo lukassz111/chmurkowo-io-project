@@ -29,7 +29,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     let googleId: string = data['id']
     let file: string = data['file']
     if(file == undefined || file == null || googleId == null || googleId == undefined || position_lat == undefined || position_lat == null || position_long == null || position_long == undefined) {
-        ResponseCreator.createsErrorResponse().setResponse(context)
+        ResponseCreator.createsErrorResponse({},"required_params").setResponse(context)
         return
     }
 
@@ -43,7 +43,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if( result.result ) {
         ResponseCreator.createsSuccessResponse({"pinId": result.value }).setResponse(context)
     } else {
-        ResponseCreator.createsErrorResponse({},"cannot add pin: "+result.info).setResponse(context)
+        ResponseCreator.createErrorResponseService({},result).setResponse(context)
     }
 };
 

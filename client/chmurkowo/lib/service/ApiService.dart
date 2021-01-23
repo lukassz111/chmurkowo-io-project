@@ -7,6 +7,27 @@ import 'package:chmurkowo/service/AuthService.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
+  static const ErrorOk = 0;
+  static const ErrorSomethingGetsWrong = 1;
+  static const ErrorRequireArgument = 2;
+  static const ErrorAddPinTooSmallOffset = 3;
+  static const ErrorAddPinImageDoNotRepresentCloud = 4;
+
+  static getMessageForErrorCode(int errorCode) {
+    switch (errorCode) {
+      case ErrorOk:
+        return "Wszystko wporządku";
+      case ErrorSomethingGetsWrong:
+        return "Coś poszło nie tak";
+      case ErrorAddPinTooSmallOffset:
+        return "Spróbuj za 30 minut, nie masz premium więc musisz poczekać";
+      case ErrorAddPinImageDoNotRepresentCloud:
+        return "To zdjecie nie zawiera chmur, jeśli jednak na zdjęciu są chmury to spróbuj jeszcze raz";
+      default:
+        return "Błąd numer: ${errorCode}";
+    }
+  }
+
   static final ApiService _instance = ApiService._internal();
 
   factory ApiService() {
@@ -89,23 +110,29 @@ class ApiService {
     ]);
     var response = await this
         .postFile(this.getFunctionUrl(methodAddPin), data, pathToImage);
-    print(response);
     var responseString = await response.stream.bytesToString();
-    print("responseString: '$responseString'");
     Map<String, dynamic> responseData = json.decode(responseString);
     print(responseData);
     if (responseData.containsKey('meta') && responseData.containsKey('data')) {
       Map<String, dynamic> meta = responseData['meta'];
       Map<String, dynamic> data = responseData['data'];
-      if (meta.containsKey('success') && data.containsKey('pinId')) {
+      if (meta.containsKey('success')) {
+        print(responseData);
         var success = meta['success'];
         var pinId = data['pinId'];
         if (success) {
-          return pinId;
+          return {
+            "pinId": pinId,
+            "error_code": meta['error_code'],
+            "success": success
+          };
+        } else {
+          return {"error_code": meta['error_code'], "success": success};
         }
       }
     }
-    return null;
+    print("If you see this you need to check api endpoint");
+    return {"error_code": ErrorSomethingGetsWrong, "success": false};
   }
 
   ApiService._internal();

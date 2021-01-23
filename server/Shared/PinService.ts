@@ -7,6 +7,7 @@ import { ServiceResult } from "./ServiceResult"
 import { Util } from './Util'
 import { Context, HttpRequest } from "@azure/functions"
 import { CognitiveService } from "./CognitiveService"
+import { ErrorCodes } from "./ErrorCodes"
 class PinService {
     private static _instance: PinService = null;
     public static get(context: Context, req: HttpRequest) {
@@ -36,7 +37,8 @@ class PinService {
         if(offset < 30 && user.premium == false ) {
             return {
                 result: false,
-                info: "too small offset"
+                info: "too small offset",
+                errorCode: ErrorCodes.AddPinTooSmallOffset
             }
         }
 
@@ -51,7 +53,8 @@ class PinService {
         if(!isACloud){
             return {
                 result: false,
-                info: "not a cloud"
+                info: "not a cloud",
+                errorCode: ErrorCodes.AddPinImageDoNotRepresentCloud
             }
         }
 
@@ -67,7 +70,8 @@ class PinService {
         return {
             result: true,
             value: insertedPin.id,
-            info: "ok"
+            info: "ok",
+            errorCode: ErrorCodes.Ok
         } 
     }
 

@@ -1,12 +1,15 @@
 import { Context } from "@azure/functions";
+import { ErrorCodes } from "./ErrorCodes";
+import { ServiceResult } from "./ServiceResult";
 export interface ResponseMeta {
     success: boolean,
     info?: string,
-    info_request_body?: string
+    info_request_body?: string,
+    error_code: number,
 }
 export interface Response {
     data: any,
-    meta: ResponseMeta
+    meta: ResponseMeta,
 }
 export class ResponseCreator {
     public static createsSuccessResponse(data: any = {}) {
@@ -14,7 +17,8 @@ export class ResponseCreator {
         responseCreator.responseData = {
             data: data,
             meta: {
-                success: true
+                success: true,
+                error_code: ErrorCodes.Ok
             }
         }
         return responseCreator;
@@ -24,7 +28,8 @@ export class ResponseCreator {
         responseCreator.responseData = {
             data: data,
             meta: {
-                success: false
+                success: false,
+                error_code: ErrorCodes.SomethingGetsWrong
             }
         }
         if(info != null) {
@@ -32,11 +37,29 @@ export class ResponseCreator {
         }
         return responseCreator; 
     }
+    public static createErrorResponseService<T>(data: any = {}, serviceResult: ServiceResult<T>) {
+        let responseCreator = new ResponseCreator()
+        responseCreator.responseData = {
+            data: data,
+            meta: {
+                success: false,
+                error_code: ErrorCodes.SomethingGetsWrong
+            }
+        }
+        if(serviceResult.info != null) {
+            responseCreator.responseData.meta.info = serviceResult.info;
+        }
+        if(serviceResult.errorCode != null) {
+            responseCreator.responseData.meta.error_code = serviceResult.errorCode;
+        }
+        return responseCreator; 
+    }
     public status: number = 200;
     public responseData: Response = {
         data: {},
         meta: {
-            success: true
+            success: true,
+            error_code: ErrorCodes.Ok
         }
     }
     public setResponse(context: Context) {
