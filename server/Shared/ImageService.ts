@@ -17,8 +17,8 @@ class ImageService {
         if(!fs.existsSync(this.BaseDir))
             fs.mkdirSync(this.BaseDir)
     }
-    private get BaseDir(): string {
-        return 'C:\\home\\site\\wwwroot\\data\\'
+    public get BaseDir(): string {
+        return 'C:\\home\\data\\image\\'
     }
     private get FileExtension(): string {
         return '.png'

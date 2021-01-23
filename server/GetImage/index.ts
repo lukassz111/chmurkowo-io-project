@@ -8,7 +8,7 @@ const fileExistsAsync = util.promisify(fs.exists);
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
-    const wwwroot = "C:\\home\\site\\wwwroot\\data\\";
+    const baseDir = ImageService.get(context,req).BaseDir;
     if(!Object.prototype.hasOwnProperty.call(req.query,'i')) {
         context.res = { status: 404 };
         return;
@@ -16,7 +16,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     let path = req.query.i;
 
     const fileMap = {
-        fileName: `${wwwroot}/${path}`,
+        fileName: `${baseDir}/${path}`,
         contentType: 'image/png'
     };
 

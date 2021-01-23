@@ -47,21 +47,13 @@ class PinService {
         console.log(imageUrl);
         
         //let isACloud = CognitiveService.recognizeImage(imageUrl);
+        //console.log(`isACloud: ${isACloud}`);
         //if(!isACloud){
         //    return {
         //        result: false,
         //        info: "not a cloud"
         //    }
         //}
-        if(Util.isProduction(this.req)) {//Enable only on production
-            let isACloud = CognitiveService.recognizeImage(imageUrl);
-            if(!isACloud){
-                return {
-                    result: false,
-                    info: "not a cloud"
-                }
-            }
-        }
 
         user.lastPhotoTimestamp = currentTimestamp
         user.resetPhotosLeft()
