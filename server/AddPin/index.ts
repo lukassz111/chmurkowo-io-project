@@ -38,7 +38,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         ResponseCreator.createsErrorResponse({},"user do not exist").setResponse(context)
         return
     }
-    let result = await PinService.addPin(user,position_lat,position_long,file)
+    let result = await PinService.get(context,req).addPin(user,position_lat,position_long,file)
     console.log(result)
     if( result.result ) {
         ResponseCreator.createsSuccessResponse({"pinId": result.value }).setResponse(context)
