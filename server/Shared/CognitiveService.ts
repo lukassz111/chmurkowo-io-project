@@ -3,7 +3,8 @@ class _CognitiveService {
     public recognizeImage(imageUrl: string) {
         const request = require('request');
 
-        let subscriptionKey = process.env['9cda7dce2f7c4f679fec791b5d6264e8'];
+        //let subscriptionKey = process.env['9cda7dce2f7c4f679fec791b5d6264e8'];
+        let subscriptionKey = '9cda7dce2f7c4f679fec791b5d6264e8';
         let endpoint = process.env['https://monisaagatka1.cognitiveservices.azure.com/']
         if (!subscriptionKey) { throw new Error('Set your environment variables for your subscription key and endpoint.'); }
 
