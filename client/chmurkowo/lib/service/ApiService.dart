@@ -90,6 +90,7 @@ class ApiService {
     var response = await this
         .postFile(this.getFunctionUrl(methodAddPin), data, pathToImage);
     var responseString = await response.stream.bytesToString();
+    print(responseString);
     Map<String, dynamic> responseData = json.decode(responseString);
     print(responseData);
     if (responseData.containsKey('meta') && responseData.containsKey('data')) {

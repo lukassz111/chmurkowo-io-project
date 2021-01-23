@@ -1,6 +1,6 @@
 class _CognitiveService {
 
-    static recognizeImage(imageUrl: string) {
+    public recognizeImage(imageUrl: string) {
         const request = require('request');
 
         let subscriptionKey = process.env['9cda7dce2f7c4f679fec791b5d6264e8'];
@@ -46,3 +46,5 @@ class _CognitiveService {
         return false;
     }
 }
+
+export const CognitiveService = new _CognitiveService();

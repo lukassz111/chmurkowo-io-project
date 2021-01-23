@@ -5,7 +5,22 @@ import { DatabaseConnection } from "./DatabaseConnection"
 import { ImageService } from "./ImageService"
 import { ServiceResult } from "./ServiceResult"
 import { Util } from './Util'
-class _PinService {
+import { Context, HttpRequest } from "@azure/functions"
+import { CognitiveService } from "./CognitiveService"
+class PinService {
+    private static _instance: PinService = null;
+    public static get(context: Context, req: HttpRequest) {
+        if(PinService._instance == null) {
+            PinService._instance = new PinService(context,req);
+        }
+        return PinService._instance;
+    }
+    private context: Context;
+    private req: HttpRequest;
+    private constructor(context: Context, req: HttpRequest) {
+        this.context = context;
+        this.req = req;
+    }
     public async addPin(user: User, lat: string, long: string, base64dataOfImage: string): Promise<ServiceResult<number>> {
         let initDb = DatabaseConnection.initialize()
         let id = user.id.toString()
@@ -25,13 +40,18 @@ class _PinService {
             }
         }
 
+        let imageService = ImageService.get(this.context,this.req);
+        await imageService.save(base64dataOfImage,filename)
         //imageUrl musi byc URLem do naszego zdjecia
-        const imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Shaki_waterfall.jpg';
-        let isACloud = _CognitiveService.recognizeImage(imageUrl);
-        if(!isACloud){
-            return {
-                result: false,
-                info: "not a cloud"
+        let imageUrl = imageService.getUrl(filename);
+        console.log(imageUrl);
+        if(Util.isProduction(this.req)) {//Enable only on production
+            let isACloud = CognitiveService.recognizeImage(imageUrl);
+            if(!isACloud){
+                return {
+                    result: false,
+                    info: "not a cloud"
+                }
             }
         }
 
@@ -40,11 +60,10 @@ class _PinService {
         console.log('OK, CAN ADD PIN')
         await initDb;
         let pin = new Pin()
-        pin.setDefault(parseFloat(lat),parseFloat(long),ImageService.formatPath(filename),user)
+        pin.setDefault(parseFloat(lat),parseFloat(long),filename,user)
         let insertedPin = await DatabaseConnection.Connection.getRepository(Pin).save(pin)
         await DatabaseConnection.Connection.getRepository(User).save(user)
 
-        ImageService.save(base64dataOfImage,filename)
         return {
             result: true,
             value: insertedPin.id,
@@ -61,4 +80,4 @@ class _PinService {
         return null
     }
 }
-export const PinService = new _PinService()
+export { PinService }

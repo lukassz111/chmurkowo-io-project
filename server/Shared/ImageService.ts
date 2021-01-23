@@ -1,12 +1,24 @@
-import * as fs from 'fs'
+import * as fs from 'fs';
+import { Context, HttpRequest } from "@azure/functions"
+class ImageService {
+    private static _instance: ImageService = null;
+    public static get(context: Context, req: HttpRequest) {
+        if(ImageService._instance == null) {
+            ImageService._instance = new ImageService(context,req);
+        }
+        return ImageService._instance;
+    }
+    private context: Context;
+    private req: HttpRequest;
+    private constructor(context: Context, req: HttpRequest) {
+        this.context = context;
+        this.req = req;
 
-class _ImageService {
-    public constructor() {
         if(!fs.existsSync(this.BaseDir))
             fs.mkdirSync(this.BaseDir)
     }
     private get BaseDir(): string {
-        return './data/'
+        return 'C:\\home\\site\\wwwroot\\data\\'
     }
     private get FileExtension(): string {
         return '.png'
@@ -16,17 +28,15 @@ class _ImageService {
         return p
     }
 
-    public save(base64data: string, filename: string) {
+    public async save(base64data: string, filename: string) {
         fs.writeFileSync(this.formatPath(filename),base64data,'base64')
-        /*
-        fs.writeFile(this.formatPath(filename),base64data,'base64',(err)=>{
-            if(err != null && err != undefined) {
-                console.error(err)
-            }
-        })
-        */
     }
 
-    public 
+    public getUrl(filename: string) {
+        let regex = /^(?:http(?:s?):\/\/[\w\.\:\d]{1,}\/)/
+        let baseUrl = regex.exec(this.req.url)[0];
+        let url = baseUrl + "api/GetImage?i="+filename+".png";
+        return url;
+    }
 }
-export const ImageService = new _ImageService();
+export { ImageService }

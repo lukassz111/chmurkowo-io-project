@@ -8,8 +8,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if(pinId == null) {
         ResponseCreator.createsErrorResponse({},'reqiure pinId param').setResponse(context)
         return
-    }
-    let pin = await PinService.getPinById(pinId)
+    } 
+    let pin = await PinService.get(context,req).getPinById(pinId)
     if(pin == null) {
         ResponseCreator.createsErrorResponse({},'pin not exist').setResponse(context)
         return
