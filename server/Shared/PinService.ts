@@ -5,7 +5,7 @@ import { DatabaseConnection } from "./DatabaseConnection"
 import { ImageService } from "./ImageService"
 import { ServiceResult } from "./ServiceResult"
 import { Util } from './Util'
-import { Context, HttpRequest } from "@azure/functions"
+import { Context, HttpRequest } from "../node_modules/@azure/functions"
 import { CognitiveService } from "./CognitiveService"
 import { ErrorCodes } from "./ErrorCodes"
 class PinService {
@@ -80,6 +80,16 @@ class PinService {
         let pins = await DatabaseConnection.Connection.getRepository(Pin).createQueryBuilder().select().where("id = "+pinId).getMany()
         if(pins.length > 0) {
             return pins[0]
+        }
+        return null
+    }
+
+    public async getAllPins(): Promise<Pin[]|null>{
+        await DatabaseConnection.initialize()
+        let pinRepo = await DatabaseConnection.Connection.getRepository(Pin)
+        let pins = pinRepo.find()
+        if((await pins).length && (await pins).length > 0) {
+            return pins
         }
         return null
     }

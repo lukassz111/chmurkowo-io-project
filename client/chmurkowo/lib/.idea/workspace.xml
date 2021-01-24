@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="33cec907-8d59-4d23-a4a8-174c95a8b41c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Page/DisplayPinPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Page/TakePhotoPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Page/TakePhotoPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/AddPin/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/AddPin/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/GetImage/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/GetImage/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/GetPhotoById/function.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/GetPhotoById/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/GetPhotoById/sample.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/Hello/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/Hello/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/Shared/ImageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/Shared/ImageService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/Shared/PinService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/Shared/PinService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/Shared/Request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/Shared/Request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/Shared/Response.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/Shared/Response.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/Shared/Util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/Shared/Util.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1nVT5Y9xp8xstAX34U0xs3IQvD3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="33cec907-8d59-4d23-a4a8-174c95a8b41c" name="Default Changelist" comment="" />
+      <created>1611474075479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611474075479</updated>
+    </task>
+    <servers />
+  </component>
+</project>

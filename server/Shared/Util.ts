@@ -1,4 +1,4 @@
-import { HttpRequest } from '@azure/functions'
+import { HttpRequest } from '../node_modules/@azure/functions'
 import * as crypto from 'crypto'
 class _Util {
     public hash(data: string|Buffer): string {

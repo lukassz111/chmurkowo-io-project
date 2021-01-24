@@ -1,4 +1,4 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { AzureFunction, Context, HttpRequest } from "../node_modules/@azure/functions"
 import { ResponseCreator } from "../Shared/Response";
 import { UserService } from "../Shared/UserService";
 import { PinService } from "../Shared/PinService";

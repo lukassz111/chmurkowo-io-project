@@ -1,4 +1,4 @@
-import { AzureFunction, Context, HttpRequest } from '@azure/functions'
+import { AzureFunction, Context, HttpRequest } from '../node_modules/@azure/functions'
 import { ImageService } from '../Shared/ImageService';
 
 const fs = require('fs');

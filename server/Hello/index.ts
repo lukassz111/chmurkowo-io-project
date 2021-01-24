@@ -1,4 +1,4 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { AzureFunction, Context, HttpRequest } from "../node_modules/@azure/functions"
 import { DatabaseConnection } from "../Shared/DatabaseConnection";
 import { ResponseCreator } from "../Shared/Response"
 import * as Request from '../Shared/Request'

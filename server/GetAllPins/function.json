@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../build/GetPhotoById/index.js"
+  "scriptFile": "../build/GetAllPins/index.js"
 }

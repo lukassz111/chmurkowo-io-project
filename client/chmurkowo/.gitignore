@@ -13,6 +13,7 @@
 *.iml
 *.ipr
 *.iws
+/.idea/
 .idea/libraries/
 .idea/*.xml
 .idea/runConfigurations/

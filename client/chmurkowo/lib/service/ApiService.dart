@@ -2,6 +2,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
 import 'package:latlong/latlong.dart';
 import 'package:chmurkowo/service/AuthService.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +14,7 @@ class ApiService {
   static const ErrorRequireArgument = 2;
   static const ErrorAddPinTooSmallOffset = 3;
   static const ErrorAddPinImageDoNotRepresentCloud = 4;
+  static const ErrorNoImage = 5;
 
   static getMessageForErrorCode(int errorCode) {
     switch (errorCode) {
@@ -19,10 +22,12 @@ class ApiService {
         return "Wszystko wporządku";
       case ErrorSomethingGetsWrong:
         return "Coś poszło nie tak";
-      case ErrorAddPinTooSmallOffset:
+        case ErrorAddPinTooSmallOffset:
         return "Spróbuj za 30 minut, nie masz premium więc musisz poczekać";
       case ErrorAddPinImageDoNotRepresentCloud:
         return "To zdjecie nie zawiera chmur, jeśli jednak na zdjęciu są chmury to spróbuj jeszcze raz";
+      case ErrorNoImage:
+        return "Nie udało się pobrać zdjęcia";
       default:
         return "Błąd numer: ${errorCode}";
     }
@@ -43,9 +48,12 @@ class ApiService {
     return ApiService.azureDomainName;
   }
 
-  static const key = "";
+  static const key = "code=lGt5C2sI49Q5rW4qRK9TpDK2ybnGXkalckkiCAdzKw1F0cVzgfearg==";
   static const methodHello = "Hello";
   static const methodAddPin = "AddPin";
+  static const methodPhotoNameByPinId = "GetPhotoNameByPinId";
+  static const methodPhotoByPinId = "GetImage";
+  static const methodAllPins = "GetAllPins";
   String getFunctionUrl(String fName) {
     return "${protocol}://${domainName}/api/${fName}?${key}";
   }
@@ -135,6 +143,64 @@ class ApiService {
     return {"error_code": ErrorSomethingGetsWrong, "success": false};
   }
 
+  Future<dynamic> getImageNameForPin(String pinId) async{
+    Map<String, String> data = new Map<String, String>();
+    data.addEntries([MapEntry("pinId", pinId.toString())]);
+    print(this.getFunctionUrl(methodPhotoNameByPinId));
+    var response = await this.post(this.getFunctionUrl(methodPhotoNameByPinId), data);
+    var responseString = response.body;
+    print("Response string = "+responseString);
+    Map<String, dynamic> responseData = json.decode(responseString);
+    if (responseData.containsKey('meta') && responseData.containsKey('data')) {
+      Map<String, dynamic> meta = responseData['meta'];
+      Map<String, dynamic> data = responseData['data'];
+      if (meta.containsKey('success')) {
+        print(responseData);
+        var success = meta['success'];
+        var photoName = data['photoName'];
+        if (success) {
+          return photoName;
+        } else {
+          return {"error_code": meta['error_code'], "success": success};
+        }
+      }
+    }
+    return {"error_code": ErrorSomethingGetsWrong, "success": false};
+  }
+
+  Future<dynamic> getImageForPin(String pinId) async{
+    var imageName = await getImageNameForPin(pinId);
+    var imageNameString = imageName.toString()+".png";
+    if(imageName is String) {
+      var url = this.getFunctionUrl(methodPhotoByPinId);
+      url += "&i="+imageNameString;
+      print(url);
+    }
+    return {"error_code": ErrorNoImage};
+  }
+
+  Future<dynamic> getAllPinsData() async{
+    var response = await this.get(this.getFunctionUrl(methodAllPins));
+    var responseString = response.body;
+    print("Response string = "+responseString);
+    Map<String, dynamic> responseData = json.decode(responseString);
+    if (responseData.containsKey('meta') && responseData.containsKey('data')) {
+      Map<String, dynamic> meta = responseData['meta'];
+      Map<String, dynamic> data = responseData['data'];
+      if (meta.containsKey('success')) {
+        print(responseData);
+        var success = meta['success'];
+        var photoName = data['photoName'];
+        if (success) {
+          return photoName;
+        } else {
+          return {"error_code": meta['error_code'], "success": success};
+        }
+      }
+    }
+  }
+
   ApiService._internal();
   AuthService authService = new AuthService();
 }
+

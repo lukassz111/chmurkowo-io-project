@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Context, HttpRequest } from "@azure/functions"
+import { Context, HttpRequest } from "../node_modules/@azure/functions"
 class ImageService {
     private static _instance: ImageService = null;
     public static get(context: Context, req: HttpRequest) {

@@ -1,4 +1,4 @@
-import { Context } from "@azure/functions";
+import { Context } from "../node_modules/@azure/functions";
 import { ErrorCodes } from "./ErrorCodes";
 import { ServiceResult } from "./ServiceResult";
 export interface ResponseMeta {

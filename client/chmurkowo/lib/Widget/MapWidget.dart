@@ -18,10 +18,10 @@ class _MapWidgetState extends State<MapWidget> {
   void initState() {
     setState(() {
       this.pins = new List<DisplayPin>();
-      this.pins.add(DisplayPin(new LatLng(51.746444, 19.446134), "Polesie"));
+      /*this.pins.add(DisplayPin(new LatLng(51.746444, 19.446134), "Polesie"));
       this.pins.add(DisplayPin(new LatLng(51.747056, 19.450167), "C12"));
       this.pins.add(DisplayPin(new LatLng(51.747958, 19.464243), "Źródliska"));
-      this.pins.add(DisplayPin(new LatLng(51.743395, 19.458031), "Górniak"));
+      this.pins.add(DisplayPin(new LatLng(51.743395, 19.458031), "Górniak"));*/
     });
   }
 
