@@ -28,6 +28,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     let position_long: string = data['position_long']
     let googleId: string = data['id']
     let file: string = data['file']
+    let disable_cognitive_service: string = data['disable_cognitive_service']
+    if(disable_cognitive_service != 'yes') {
+        disable_cognitive_service = 'no'
+    }
     if(file == undefined || file == null || googleId == null || googleId == undefined || position_lat == undefined || position_lat == null || position_long == null || position_long == undefined) {
         ResponseCreator.createsErrorResponse({},"required_params").setResponse(context)
         return

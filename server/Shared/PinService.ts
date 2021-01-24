@@ -22,7 +22,7 @@ class PinService {
         this.context = context;
         this.req = req;
     }
-    public async addPin(user: User, lat: string, long: string, base64dataOfImage: string): Promise<ServiceResult<number>> {
+    public async addPin(user: User, lat: string, long: string, base64dataOfImage: string,skipCognitiveService: boolean = false): Promise<ServiceResult<number>> {
         let initDb = DatabaseConnection.initialize()
         let id = user.id.toString()
         let hashLat = Util.hash(lat.toString())
@@ -48,13 +48,15 @@ class PinService {
         let imageUrl = imageService.getUrl(filename);
         console.log(imageUrl);
         
-        let isACloud = CognitiveService.recognizeImage(imageUrl);
-        console.log(`isACloud: ${isACloud}`);
-        if(!isACloud){
-            return {
-                result: false,
-                info: "not a cloud",
-                errorCode: ErrorCodes.AddPinImageDoNotRepresentCloud
+        if(!skipCognitiveService) {
+            let isACloud = CognitiveService.recognizeImageAsCloud(imageUrl);
+            console.log(`isACloud: ${isACloud}`);
+            if(!isACloud){
+                return {
+                    result: false,
+                    info: "not a cloud",
+                    errorCode: ErrorCodes.AddPinImageDoNotRepresentCloud
+                }
             }
         }
 

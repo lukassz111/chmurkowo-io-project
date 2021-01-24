@@ -24,7 +24,10 @@
    },
    "devDependencies": {
       "@azure/functions": "^1.2.2",
+      "@types/axios": "^0.14.0",
       "@types/node": "^8.10.66",
+      "@types/request": "^2.48.5",
+      "axios": "^0.21.1",
       "ts-node": "3.3.0",
       "typescript": "3.3.3333"
    }
