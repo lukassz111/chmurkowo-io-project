@@ -15,7 +15,6 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
-    ApiService apiService = new ApiService();
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(
@@ -24,12 +23,6 @@ class _MapPageState extends State<MapPage> {
           ),
           body: MapWidget(),
           drawer: new DrawerWidget(),
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: (){
-              apiService.getAllPinsData();
-            }
-          ),
         ),
         onWillPop: () async => false);
   }

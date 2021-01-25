@@ -2,11 +2,13 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:chmurkowo/model/DisplayPin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:latlong/latlong.dart';
 import 'package:chmurkowo/service/AuthService.dart';
 import 'package:http/http.dart' as http;
+import 'package:json_annotation/json_annotation.dart';
 
 class ApiService {
   static const ErrorOk = 0;
@@ -179,10 +181,9 @@ class ApiService {
     return {"error_code": ErrorNoImage};
   }
 
-  Future<dynamic> getAllPinsData() async{
+  Future<dynamic> getAllPins() async{
     var response = await this.get(this.getFunctionUrl(methodAllPins));
     var responseString = response.body;
-    print("Response string = "+responseString);
     Map<String, dynamic> responseData = json.decode(responseString);
     if (responseData.containsKey('meta') && responseData.containsKey('data')) {
       Map<String, dynamic> meta = responseData['meta'];
@@ -190,9 +191,17 @@ class ApiService {
       if (meta.containsKey('success')) {
         print(responseData);
         var success = meta['success'];
-        var photoName = data['photoName'];
         if (success) {
-          return photoName;
+          var dataList = data["pinsData"];
+          List<DisplayPin> pins = new List<DisplayPin>();
+          for (var i = 0; i < dataList.length; i++){
+            var id = dataList[i]['id'];
+            print(i);
+            var latitude = dataList[i]['latitude'];
+            var longitude = dataList[i]['longitude'];
+            pins.add(new DisplayPin.a(new LatLng(double.tryParse(latitude.toString()), double.tryParse(longitude.toString())), 'test$i', id));
+          }
+          return pins;
         } else {
           return {"error_code": meta['error_code'], "success": success};
         }
