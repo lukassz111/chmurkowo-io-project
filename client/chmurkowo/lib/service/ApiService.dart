@@ -176,7 +176,7 @@ class ApiService {
     if(imageName is String) {
       var url = this.getFunctionUrl(methodPhotoByPinId);
       url += "&i="+imageNameString;
-      print(url);
+      return url;
     }
     return {"error_code": ErrorNoImage};
   }
