@@ -19,7 +19,7 @@ class PinDetailsPage extends StatefulWidget {
 class _PinDetailsPageState extends State<PinDetailsPage> {
   Widget _photo = new CircularProgressIndicator();
   Widget _info = Center(
-      child: new CircularProgressIndicator();
+      child: new CircularProgressIndicator()
   );
   bool loadingPhoto = true;
   bool loadingInfo = true;
