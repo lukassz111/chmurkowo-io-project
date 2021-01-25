@@ -1,9 +1,6 @@
-import 'package:chmurkowo/Page/PinDetailsPage.dart';
 import 'package:chmurkowo/model/DisplayPin.dart';
-import 'package:chmurkowo/service/ApiService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
 import 'package:uuid/uuid.dart';
@@ -16,6 +13,7 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   List<DisplayPin> pins = new List<DisplayPin>();
+  bool loading = true;
   MapController mapController;
   LatLng center = new LatLng(51.748706, 19.451665);
   LatLng northWest;
@@ -31,40 +29,37 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   void initState() {
-    if (loading) {
+    if(loading){
       ApiService apiService = new ApiService();
       apiService.getAllPins().then((value) {
-        for (var i = 0; i < value.length; i++) {
+        for(var i = 0; i < value.length; i++){
           this.pins.add(value[i]);
         }
-        if (value.length > 0)
+        if(value.length > 0 )
           setState(() {
             loading = false;
           });
-      });
-    }
+      }
+    );}
   }
 
   List<Marker> buildMarkers(BuildContext context) {
-    print(pins.length);
     List<Marker> result = this.pins.map<Marker>((pin) {
       Marker x = new Marker(
           width: 40.0,
           height: 40.0,
           point: pin.position,
           builder: (ctx) => new Container(
-                  child: new FloatingActionButton(
-                heroTag:
-                    "hero_pin_${pin.position.latitude}_${pin.position.longitude}",
-                child: Icon(
-                  Icons.place,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => new PinDetailsPage(pin));
-                },
+                child: new FloatingActionButton(
+                  heroTag:
+                      "hero_pin_${pin.position.latitude}_${pin.position.longitude}",
+                  child: Icon(
+                    Icons.place,
+                    color: Colors.white,),
+                  onPressed: (){
+                    showDialog(context: context, builder: (_) => new PinDetailsPage(pin));
+                  },
+
               )));
       return x;
     }).toList(growable: true);
@@ -85,7 +80,6 @@ class _MapWidgetState extends State<MapWidget> {
           onWillPop: () async => false);
     }
     var markers = buildMarkers(context);
-    ;
     return FlutterMap(
       mapController: mapController,
       options: new MapOptions(
