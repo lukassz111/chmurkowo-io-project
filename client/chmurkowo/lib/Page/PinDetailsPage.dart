@@ -1,4 +1,3 @@
-
 import 'dart:collection';
 import 'dart:convert';
 //import 'dart:html';
@@ -18,7 +17,6 @@ class PinDetailsPage extends StatefulWidget {
 }
 
 class _PinDetailsPageState extends State<PinDetailsPage> {
-
   Widget _photo = new CircularProgressIndicator();
   Widget _info = new CircularProgressIndicator();
   bool loadingPhoto = true;
@@ -27,36 +25,40 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
   List<Placemark> locations;
   User user = null;
 
-
   @override
   void initState() {
     ApiService apiService = new ApiService();
 
-    if(loadingPhoto){
+    if (loadingPhoto) {
       print("tupolew");
-      apiService.getImageForPin(widget.pin.getId().toString()).then((photoLink) {
-        if(photoLink is String){
+      apiService
+          .getImageForPin(widget.pin.getId().toString())
+          .then((photoLink) {
+        if (photoLink is String) {
           this._photo = new Image.network(photoLink);
         }
         setState(() {
           loadingPhoto = false;
         });
-      }
-      );
+      });
     }
-    if(loadingInfo){
+    if (loadingInfo) {
       print("tupolew2");
       print(widget.pin.getUserId());
-      apiService.getUserById(widget.pin.getUserId()).then((user){
+      apiService.getUserById(widget.pin.getUserId()).then((user) {
         print(user);
-        if(user != null){
+        if (user != null) {
           this.user = user;
           print(user);
           _info = Text(
             "Użytkownik: ${this.user.displayName}\nID pinu: ${widget.pin.getId()}\nSzerokość geograficzna: ${widget.pin.getPosition().latitude}\nDługość geograficzna: ${widget.pin.getPosition().longitude}\nLokalizacja: \n",
             textAlign: TextAlign.left,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17, decoration: TextDecoration.none, color: Colors.black),
+            style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 17,
+                decoration: TextDecoration.none,
+                color: Colors.black),
           );
           setState(() {
             loadingInfo = false;
@@ -76,16 +78,15 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
   @override
   Widget build(BuildContext context) {
     ApiService apiService = new ApiService();
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Zdjęcie"),
+      ),
+      body: Center(
+        child: ListView(
           children: [
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [SizedBox(
+            new Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SizedBox(
                 height: this.cardHeight,
                 child: Card(
                   color: Color.fromRGBO(10, 100, 150, 0.5),
@@ -93,10 +94,8 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
                     // Generally, material cards use onSurface with 12% opacity for the pressed state.
-                    splashColor: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.12),
+                    splashColor:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(0),
                     // Generally, material cards do not have a highlight overlay.
                     highlightColor: Colors.transparent,
                     child: Center(
@@ -105,15 +104,10 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
                     //child: TravelDestinationContent(destination: destination),
                   ),
                 ),
-              ),]
-            ),
-            new Container (
-              color: Color.fromARGB(200, 100, 100, 150),
-              child:  new Row(
-                children: [
-                  _info
-                ],
               ),
+            ]),
+            ListTile(
+              title: _info,
             ),
           ],
         ),
