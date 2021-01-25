@@ -89,7 +89,20 @@ class PinService {
     public async getAllPins(): Promise<Pin[]|null>{
         await DatabaseConnection.initialize()
         let pinRepo = await DatabaseConnection.Connection.getRepository(Pin)
-        let pins = pinRepo.find()
+        let pins = pinRepo.find({loadRelationIds: true})
+        if((await pins).length && (await pins).length > 0) {
+            return pins
+        }
+        return null
+    }
+
+    //lat1, long1 połnocno zachodni
+    //lat2, long2 połodniowo wschodni
+    public async getAllPinsInArea(lat1: number,long1: number, lat2: number, long2: number): Promise<Pin[]|null>{
+        await DatabaseConnection.initialize()
+        let pinRepo = await DatabaseConnection.Connection.getRepository(Pin)
+        //TODO gdzieś tutaj filtrowanie 
+        let pins = pinRepo.find({loadRelationIds: true})
         if((await pins).length && (await pins).length > 0) {
             return pins
         }
