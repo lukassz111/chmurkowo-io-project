@@ -1,6 +1,7 @@
 import 'package:chmurkowo/model/DisplayPin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
 import 'package:uuid/uuid.dart';
@@ -13,6 +14,16 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   List<DisplayPin> pins = new List<DisplayPin>();
+  MapController mapController;
+  LatLng center = new LatLng(51.748706, 19.451665);
+  LatLng northWest;
+  LatLng southEast;
+
+  void updateBounds(LatLng northWest, LatLng southEast) {
+    print("northWest: ${northWest}, southEast: ${southEast}");
+    this.northWest = northWest;
+    this.southEast = southEast;
+  }
 
   @override
   void initState() {
@@ -44,28 +55,32 @@ class _MapWidgetState extends State<MapWidget> {
       return x;
     }).toList(growable: true);
 
-    Marker x = new Marker(
-      width: 80.0,
-      height: 80.0,
-      point: new LatLng(51.5, -0.09),
-      builder: (ctx) => new Container(
-        child: Icon(Icons.place),
-      ),
-    );
-
-    result.add(x);
     return result;
   }
 
   @override
   Widget build(BuildContext context) {
+    this.mapController = new MapController();
     var uuid = Uuid();
     var markers = buildMarkers(context);
+    ;
     return FlutterMap(
+      mapController: mapController,
       options: new MapOptions(
-          center: new LatLng(51.748706, 19.451665),
+          center: this.center,
           zoom: 13.0,
-          plugins: [MarkerClusterPlugin()]),
+          plugins: [MarkerClusterPlugin()],
+          onPositionChanged: (mapPosition, x) {
+            if (this.mapController == null) {
+              print("this.mapController is null");
+              return;
+            } else if (!this.mapController.ready) {
+              print("this.mapController.ready = false");
+              return;
+            }
+            var b = this.mapController.bounds;
+            this.updateBounds(b.northWest, b.southEast);
+          }),
       layers: [
         new TileLayerOptions(
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",

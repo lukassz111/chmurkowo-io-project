@@ -5,11 +5,11 @@ import { ResponseCreator } from "../Shared/Response";
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     let pins = await PinService.get(context,req).getAllPins()
     if(pins == null) {
-        ResponseCreator.createsErrorResponse({},'no pins').setResponse(context)
+        ResponseCreator.createsSuccessResponse({"pinsData":[]}).setResponse(context)
         return
     }
 
-    let pinsData = JSON.stringify(pins)
+    let pinsData = pins
     ResponseCreator.createsSuccessResponse({
         pinsData
     }).setResponse(context)
