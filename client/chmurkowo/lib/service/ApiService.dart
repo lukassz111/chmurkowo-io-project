@@ -25,7 +25,7 @@ class ApiService {
         return "Wszystko wporządku";
       case ErrorSomethingGetsWrong:
         return "Coś poszło nie tak";
-        case ErrorAddPinTooSmallOffset:
+      case ErrorAddPinTooSmallOffset:
         return "Spróbuj za 30 minut, nie masz premium więc musisz poczekać";
       case ErrorAddPinImageDoNotRepresentCloud:
         return "To zdjecie nie zawiera chmur, jeśli jednak na zdjęciu są chmury to spróbuj jeszcze raz";
@@ -42,16 +42,17 @@ class ApiService {
     return _instance;
   }
   static const azureDomainName = "chmurkowo.azurewebsites.net";
-  static const localDomainName = "192.168.1.183:7071";
+  static const localDomainName = "192.168.42.10:7071";
   static get protocol {
-    return "https";
+    return "http";
   }
 
   static get domainName {
-    return ApiService.azureDomainName;
+    return ApiService.localDomainName;
   }
 
-  static const key = "code=lGt5C2sI49Q5rW4qRK9TpDK2ybnGXkalckkiCAdzKw1F0cVzgfearg==";
+  static const key =
+      "code=lGt5C2sI49Q5rW4qRK9TpDK2ybnGXkalckkiCAdzKw1F0cVzgfearg==";
   static const methodHello = "Hello";
   static const methodAddPin = "AddPin";
   static const methodPhotoNameByPinId = "GetPhotoNameByPinId";
@@ -147,13 +148,14 @@ class ApiService {
     return {"error_code": ErrorSomethingGetsWrong, "success": false};
   }
 
-  Future<dynamic> getImageNameForPin(String pinId) async{
+  Future<dynamic> getImageNameForPin(String pinId) async {
     Map<String, String> data = new Map<String, String>();
     data.addEntries([MapEntry("pinId", pinId.toString())]);
     print(this.getFunctionUrl(methodPhotoNameByPinId));
-    var response = await this.post(this.getFunctionUrl(methodPhotoNameByPinId), data);
+    var response =
+        await this.post(this.getFunctionUrl(methodPhotoNameByPinId), data);
     var responseString = response.body;
-    print("Response string = "+responseString);
+    print("Response string = " + responseString);
     Map<String, dynamic> responseData = json.decode(responseString);
     if (responseData.containsKey('meta') && responseData.containsKey('data')) {
       Map<String, dynamic> meta = responseData['meta'];
@@ -172,18 +174,18 @@ class ApiService {
     return {"error_code": ErrorSomethingGetsWrong, "success": false};
   }
 
-  Future<dynamic> getImageForPin(String pinId) async{
+  Future<dynamic> getImageForPin(String pinId) async {
     var imageName = await getImageNameForPin(pinId);
-    var imageNameString = imageName.toString()+".png";
-    if(imageName is String) {
+    var imageNameString = imageName.toString() + ".png";
+    if (imageName is String) {
       var url = this.getFunctionUrl(methodPhotoByPinId);
-      url += "&i="+imageNameString;
+      url += "&i=" + imageNameString;
       return url;
     }
     return {"error_code": ErrorNoImage};
   }
 
-  Future<dynamic> getAllPins() async{
+  Future<dynamic> getAllPins() async {
     var response = await this.get(this.getFunctionUrl(methodAllPins));
     var responseString = response.body;
     Map<String, dynamic> responseData = json.decode(responseString);
@@ -195,13 +197,19 @@ class ApiService {
         if (success) {
           var dataList = data["pinsData"];
           List<DisplayPin> pins = new List<DisplayPin>();
-          for (var i = 0; i < dataList.length; i++){
+          for (var i = 0; i < dataList.length; i++) {
             var id = dataList[i]['id'];
             var latitude = dataList[i]['latitude'];
             var longitude = dataList[i]['longitude'];
             var user = dataList[i]['user'];
             var photoFilename = dataList[i]['photo_filename'];
-            pins.add(new DisplayPin.a(new LatLng(double.tryParse(latitude.toString()), double.tryParse(longitude.toString())), 'test$i', id, user.toString(), photoFilename));
+            pins.add(new DisplayPin.a(
+                new LatLng(double.tryParse(latitude.toString()),
+                    double.tryParse(longitude.toString())),
+                'test$i',
+                id,
+                user.toString(),
+                photoFilename));
           }
           return pins;
         } else {
@@ -212,9 +220,7 @@ class ApiService {
   }
 
   Future<User> getUserById(String id) async {
-    Map<String, dynamic> data = {
-      "id": id
-    };
+    Map<String, dynamic> data = {"id": id};
     var json = await this.post(this.getFunctionUrl(methodUserById), data);
     print(this.getFunctionUrl(methodUserById));
     String responseString = json.body;
@@ -229,4 +235,3 @@ class ApiService {
   ApiService._internal();
   AuthService authService = new AuthService();
 }
-
