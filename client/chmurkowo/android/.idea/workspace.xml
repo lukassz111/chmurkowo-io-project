@@ -24,13 +24,8 @@
   <component name="ChangeListManager">
     <list default="true" id="23518b5a-bbe8-4898-b45b-bc55093200ff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Page/MapPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Page/MapPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Page/PinDetailsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Page/PinDetailsPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Widget/MapWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Widget/MapWidget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/model/DisplayPin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/model/DisplayPin.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/service/ApiService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/service/ApiService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

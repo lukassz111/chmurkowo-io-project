@@ -196,6 +196,7 @@ class ApiService {
           List<DisplayPin> pins = new List<DisplayPin>();
           for (var i = 0; i < dataList.length; i++){
             var id = dataList[i]['id'];
+            print(i);
             var latitude = dataList[i]['latitude'];
             var longitude = dataList[i]['longitude'];
             pins.add(new DisplayPin.a(new LatLng(double.tryParse(latitude.toString()), double.tryParse(longitude.toString())), 'test$i', id));

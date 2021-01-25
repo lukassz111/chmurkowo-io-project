@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:chmurkowo/model/DisplayPin.dart';
 import 'package:chmurkowo/service/ApiService.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +21,19 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
 
   @override
   void initState() {
-    if(loading){
+    /*if(loading){
       ApiService apiService = new ApiService();
       apiService.getImageForPin(widget.pin.getId().toString()).then((photoLink) {
-        this._photo = new Image.network(photoLink);
-        print(this._photo);
-        setState(() {
-          loading = false;
-        });
+        /*if(photoLink is ){
+          print("Photolink: "+photoLink.toString());
+          this._photo = new Image.network(photoLink);
+          print(this._photo);
+          setState(() {
+            loading = false;
+          });*/
+        }
       }
-      );}
+      );}*/
   }
 
   @override
