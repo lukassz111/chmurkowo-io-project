@@ -1,0 +1,298 @@
+@startuml
+set namespaceSeparator ::
+
+class "chmurkowo::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "chmurkowo::main.dart::MyApp"
+
+class "chmurkowo::model::DisplayPin.dart::DisplayPin" {
+  +LatLng position
+  +String name
+  +int id
+  +String userId
+  +String photoFilename
+  +int getId()
+  +LatLng getPosition()
+  +String getUserId()
+}
+
+"chmurkowo::model::DisplayPin.dart::DisplayPin" o-- "latlong::latlong.dart::LatLng"
+
+class "chmurkowo::model::GoogleUser.dart::GoogleUser" {
+  +String googleId
+  +String displayName
+  +String email
+  +String getDisplayName()
+  +Map toMap()
+}
+
+class "chmurkowo::model::User.dart::User" {
+  +String googleId
+  +String displayName
+  +String email
+  +int score
+  +int photosLeft
+  +int lastPhotoTimestamp
+  +String getDisplayName()
+}
+
+class "chmurkowo::Page::AddImagePage.dart::AddImagePage" {
+  +_AddImagePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::AddImagePage.dart::AddImagePage"
+
+class "chmurkowo::Page::AddImagePage.dart::_AddImagePageState" {
+  +dynamic pathToImage
+  +LatLng location
+  +LocationService locationService
+  +ApiService apiService
+  +dynamic Function() callbackSubmit
+  +List<Widget> childrens
+  +void callbackSubmitWhenValid()
+  +void valid()
+  +Widget build()
+  +void initState()
+}
+
+"chmurkowo::Page::AddImagePage.dart::_AddImagePageState" o-- "latlong::latlong.dart::LatLng"
+"chmurkowo::Page::AddImagePage.dart::_AddImagePageState" o-- "chmurkowo::service::LocationService.dart::LocationService"
+"chmurkowo::Page::AddImagePage.dart::_AddImagePageState" o-- "chmurkowo::service::ApiService.dart::ApiService"
+"chmurkowo::Page::AddImagePage.dart::_AddImagePageState" o-- "chmurkowo::Page::AddImagePage.dart::dynamic Function()"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::AddImagePage.dart::_AddImagePageState"
+
+class "chmurkowo::Page::DrawerWidget.dart::DrawerWidget" {
+  +_DrawerWidgetState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::DrawerWidget.dart::DrawerWidget"
+
+class "chmurkowo::Page::DrawerWidget.dart::_DrawerWidgetState" {
+  +AuthService authService
+  +Widget build()
+}
+
+"chmurkowo::Page::DrawerWidget.dart::_DrawerWidgetState" o-- "chmurkowo::service::AuthService.dart::AuthService"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::DrawerWidget.dart::_DrawerWidgetState"
+
+class "chmurkowo::Page::ErrorAddImage.dart::ErrorAddImage" {
+  +_ErrorAddImageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::ErrorAddImage.dart::ErrorAddImage"
+
+class "chmurkowo::Page::ErrorAddImage.dart::_ErrorAddImageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::ErrorAddImage.dart::_ErrorAddImageState"
+
+class "chmurkowo::Page::GoogleLoginPage.dart::GoogleLoginPage" {
+  +_GoogleLoginPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::GoogleLoginPage.dart::GoogleLoginPage"
+
+class "chmurkowo::Page::GoogleLoginPage.dart::_GoogleLoginPageState" {
+  +AuthService authService
+  +void initState()
+  +Widget build()
+}
+
+"chmurkowo::Page::GoogleLoginPage.dart::_GoogleLoginPageState" o-- "chmurkowo::service::AuthService.dart::AuthService"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::GoogleLoginPage.dart::_GoogleLoginPageState"
+
+class "chmurkowo::Page::MapPage.dart::MapPage" {
+  +_MapPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::MapPage.dart::MapPage"
+
+class "chmurkowo::Page::MapPage.dart::_MapPageState" {
+  +List<DisplayPin> pins
+  +Widget build()
+  +void loadPins()
+  +void initState()
+  +void dispose()
+  +void didPopNext()
+  +void didChangeDependencies()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::MapPage.dart::_MapPageState"
+"flutter::src::widgets::routes.dart::RouteAware" <|-- "chmurkowo::Page::MapPage.dart::_MapPageState"
+
+class "chmurkowo::Page::PinDetailsPage.dart::PinDetailsPage" {
+  +DisplayPin pin
+  +_PinDetailsPageState createState()
+}
+
+"chmurkowo::Page::PinDetailsPage.dart::PinDetailsPage" o-- "chmurkowo::model::DisplayPin.dart::DisplayPin"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::PinDetailsPage.dart::PinDetailsPage"
+
+class "chmurkowo::Page::PinDetailsPage.dart::_PinDetailsPageState" {
+  -Widget _photo
+  -Widget _info
+  +bool loadingPhoto
+  +bool loadingInfo
+  +double cardHeight
+  +List<Placemark> locations
+  +User user
+  +void initState()
+  +Widget build()
+}
+
+"chmurkowo::Page::PinDetailsPage.dart::_PinDetailsPageState" o-- "flutter::src::widgets::framework.dart::Widget"
+"chmurkowo::Page::PinDetailsPage.dart::_PinDetailsPageState" o-- "chmurkowo::model::User.dart::User"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::PinDetailsPage.dart::_PinDetailsPageState"
+
+class "chmurkowo::Page::SplashPage.dart::SplashPage" {
+  +_SplashPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::SplashPage.dart::SplashPage"
+
+class "chmurkowo::Page::SplashPage.dart::_SplashPageState" {
+  +Widget build()
+  +Future askForPermissions()
+  +Future doOnStart()
+  +void initState()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::SplashPage.dart::_SplashPageState"
+
+class "chmurkowo::Page::TakePhotoPage.dart::TakePhotoPage" {
+  +_TakePhotoPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Page::TakePhotoPage.dart::TakePhotoPage"
+
+class "chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" {
+  -ValueNotifier<CameraFlashes> _switchFlash
+  -ValueNotifier<double> _zoom
+  -ValueNotifier<Sensors> _sensor
+  -ValueNotifier<CaptureModes> _captureMode
+  -ValueNotifier<Size> _photoSize
+  +DeviceOrientation deviceOrientation
+  -PictureController _pictureController
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<CameraFlashes>"
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<double>"
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<Sensors>"
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<CaptureModes>"
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<Size>"
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "flutter::src::services::system_chrome.dart::DeviceOrientation"
+"chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState" o-- "camerawesome::picture_controller.dart::PictureController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Page::TakePhotoPage.dart::_TakePhotoPageState"
+
+class "chmurkowo::service::ApiService.dart::ApiService" {
+  {static} +int ErrorOk
+  {static} +int ErrorSomethingGetsWrong
+  {static} +int ErrorRequireArgument
+  {static} +int ErrorAddPinTooSmallOffset
+  {static} +int ErrorAddPinImageDoNotRepresentCloud
+  {static} +int ErrorNoImage
+  {static} -ApiService _instance
+  {static} +String azureDomainName
+  {static} +String localDomainName
+  {static} +String key
+  {static} +String methodHello
+  {static} +String methodAddPin
+  {static} +String methodPhotoNameByPinId
+  {static} +String methodPhotoByPinId
+  {static} +String methodAllPins
+  {static} +String methodUserById
+  +AuthService authService
+  {static} +dynamic protocol
+  {static} +dynamic domainName
+  {static} +dynamic getMessageForErrorCode()
+  +dynamic getFunctionUrl()
+  +Map requestHeaders()
+  +Future get()
+  +Future post()
+  +Future postFile()
+  +Future hello()
+  +Future addPin()
+  +Future getImageNameForPin()
+  +Future getImageForPin()
+  +Future getAllPins()
+  +Future getUserById()
+}
+
+"chmurkowo::service::ApiService.dart::ApiService" o-- "chmurkowo::service::ApiService.dart::ApiService"
+"chmurkowo::service::ApiService.dart::ApiService" o-- "chmurkowo::service::AuthService.dart::AuthService"
+
+class "chmurkowo::service::AuthService.dart::AuthService" {
+  {static} -AuthService _instance
+  -UserCredential _userCredential
+  +String googleId
+  +String email
+  +String displayName
+  +GoogleUser user
+  +Future initialize()
+  +Future signInWithGoogle()
+}
+
+"chmurkowo::service::AuthService.dart::AuthService" o-- "chmurkowo::service::AuthService.dart::AuthService"
+"chmurkowo::service::AuthService.dart::AuthService" o-- "firebase_auth::firebase_auth.dart::UserCredential"
+"chmurkowo::service::AuthService.dart::AuthService" o-- "chmurkowo::model::GoogleUser.dart::GoogleUser"
+
+class "chmurkowo::service::LocationService.dart::LocationService" {
+  {static} -LocationService _instance
+  +Future currentLocation()
+}
+
+"chmurkowo::service::LocationService.dart::LocationService" o-- "chmurkowo::service::LocationService.dart::LocationService"
+
+class "chmurkowo::service::PermissionsService.dart::PermissionsService" {
+  {static} -PermissionsService _instance
+  +dynamic neededPermissions
+  +Future requestAllNeededPermissions()
+  +Future requestPermission()
+}
+
+"chmurkowo::service::PermissionsService.dart::PermissionsService" o-- "chmurkowo::service::PermissionsService.dart::PermissionsService"
+
+class "chmurkowo::service::PrefsService.dart::PrefsService" {
+  {static} -PrefsService _instance
+  +Future<SharedPreferences> prefs
+  -Future _getBool()
+  -Future _setBool()
+  +Future userHelloDone()
+}
+
+"chmurkowo::service::PrefsService.dart::PrefsService" o-- "chmurkowo::service::PrefsService.dart::PrefsService"
+
+class "chmurkowo::util::Util.dart::Util" {
+  {static} +String MapToJson()
+}
+
+class "chmurkowo::Widget::MapWidget.dart::MapWidget" {
+  +List<DisplayPin> pins
+  +bool loading
+  +_MapWidgetState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "chmurkowo::Widget::MapWidget.dart::MapWidget"
+
+class "chmurkowo::Widget::MapWidget.dart::_MapWidgetState" {
+  +MapController mapController
+  +LatLng center
+  +LatLng northWest
+  +LatLng southEast
+  +void updateBounds()
+  +List buildMarkers()
+  +Widget build()
+}
+
+"chmurkowo::Widget::MapWidget.dart::_MapWidgetState" o-- "flutter_map::flutter_map.dart::MapController"
+"chmurkowo::Widget::MapWidget.dart::_MapWidgetState" o-- "latlong::latlong.dart::LatLng"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "chmurkowo::Widget::MapWidget.dart::_MapWidgetState"
+
+
+@enduml
