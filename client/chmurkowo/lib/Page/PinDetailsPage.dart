@@ -6,7 +6,8 @@ import 'dart:convert';
 import 'package:chmurkowo/model/DisplayPin.dart';
 import 'package:chmurkowo/service/ApiService.dart';
 import 'package:flutter/material.dart';
-
+import 'package:chmurkowo/model/User.dart';
+import 'package:geocoding/geocoding.dart';
 
 class PinDetailsPage extends StatefulWidget {
   final DisplayPin pin;
@@ -19,27 +20,62 @@ class PinDetailsPage extends StatefulWidget {
 class _PinDetailsPageState extends State<PinDetailsPage> {
 
   Widget _photo = new CircularProgressIndicator();
-  bool loading = true;
+  Widget _info = new CircularProgressIndicator();
+  bool loadingPhoto = true;
+  bool loadingInfo = true;
   final cardHeight = 400.0;
+  List<Placemark> locations;
+  User user = null;
 
 
   @override
   void initState() {
-    if(loading){
-      ApiService apiService = new ApiService();
+    ApiService apiService = new ApiService();
+
+    if(loadingPhoto){
+      print("tupolew");
       apiService.getImageForPin(widget.pin.getId().toString()).then((photoLink) {
         if(photoLink is String){
           this._photo = new Image.network(photoLink);
+        }
+        setState(() {
+          loadingPhoto = false;
+        });
+      }
+      );
+    }
+    if(loadingInfo){
+      print("tupolew2");
+      print(widget.pin.getUserId());
+      apiService.getUserById(widget.pin.getUserId()).then((user){
+        print(user);
+        if(user != null){
+          this.user = user;
+          print(user);
+          _info = Text(
+            "Użytkownik: ${this.user.displayName}\nID pinu: ${widget.pin.getId()}\nSzerokość geograficzna: ${widget.pin.getPosition().latitude}\nDługość geograficzna: ${widget.pin.getPosition().longitude}\nLokalizacja: \n",
+            textAlign: TextAlign.left,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17, decoration: TextDecoration.none, color: Colors.black),
+          );
           setState(() {
-            loading = false;
+            loadingInfo = false;
           });
         }
-      }
-      );}
+      });
+      /*placemarkFromCoordinates(widget.pin.position.latitude, widget.pin.position.longitude).then((locationValues) {
+        print("tu");
+        if(locationValues.length > 0){
+          print("tutaj");
+          this.locations = locationValues;
+        }
+      });*/
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    ApiService apiService = new ApiService();
     return SafeArea(
       top: false,
       bottom: false,
@@ -48,6 +84,7 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
         child: Column(
           children: [
             new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [SizedBox(
                 height: this.cardHeight,
                 child: Card(
@@ -74,12 +111,7 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
               color: Color.fromARGB(200, 100, 100, 150),
               child:  new Row(
                 children: [
-                  Text(
-                    "Użytkownik: ",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17, decoration: TextDecoration.none, color: Colors.black),
-                  ),
+                  _info
                 ],
               ),
             ),

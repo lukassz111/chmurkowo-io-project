@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:chmurkowo/service/AuthService.dart';
 import 'package:http/http.dart' as http;
+import 'package:chmurkowo/model/User.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class ApiService {
@@ -56,6 +57,7 @@ class ApiService {
   static const methodPhotoNameByPinId = "GetPhotoNameByPinId";
   static const methodPhotoByPinId = "GetImage";
   static const methodAllPins = "GetAllPins";
+  static const methodUserById = "GetUserById";
   String getFunctionUrl(String fName) {
     return "${protocol}://${domainName}/api/${fName}?${key}";
   }
@@ -189,17 +191,17 @@ class ApiService {
       Map<String, dynamic> meta = responseData['meta'];
       Map<String, dynamic> data = responseData['data'];
       if (meta.containsKey('success')) {
-        print(responseData);
         var success = meta['success'];
         if (success) {
           var dataList = data["pinsData"];
           List<DisplayPin> pins = new List<DisplayPin>();
           for (var i = 0; i < dataList.length; i++){
             var id = dataList[i]['id'];
-            print(i);
             var latitude = dataList[i]['latitude'];
             var longitude = dataList[i]['longitude'];
-            pins.add(new DisplayPin.a(new LatLng(double.tryParse(latitude.toString()), double.tryParse(longitude.toString())), 'test$i', id));
+            var user = dataList[i]['user'];
+            var photoFilename = dataList[i]['photo_filename'];
+            pins.add(new DisplayPin.a(new LatLng(double.tryParse(latitude.toString()), double.tryParse(longitude.toString())), 'test$i', id, user.toString(), photoFilename));
           }
           return pins;
         } else {
@@ -207,6 +209,21 @@ class ApiService {
         }
       }
     }
+  }
+
+  Future<User> getUserById(String id) async {
+    Map<String, dynamic> data = {
+      "id": id
+    };
+    var json = await this.post(this.getFunctionUrl(methodUserById), data);
+    String responseString = json.body;
+    print(responseString);
+    //print(json.body);
+    Map<String, dynamic> userMap = jsonDecode(responseString);
+    Map<String, dynamic> userData = userMap["data"]["user"];
+    print(userData);
+    User user = User.fromJson(userData);
+    return user;
   }
 
   ApiService._internal();

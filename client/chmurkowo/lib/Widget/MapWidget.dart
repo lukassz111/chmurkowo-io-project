@@ -1,4 +1,6 @@
+import 'package:chmurkowo/Page/PinDetailsPage.dart';
 import 'package:chmurkowo/model/DisplayPin.dart';
+import 'package:chmurkowo/service/ApiService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -24,8 +26,6 @@ class _MapWidgetState extends State<MapWidget> {
     this.northWest = northWest;
     this.southEast = southEast;
   }
-
-  bool loading = true;
 
   @override
   void initState() {

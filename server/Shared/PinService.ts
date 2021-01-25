@@ -91,6 +91,7 @@ class PinService {
         let pinRepo = await DatabaseConnection.Connection.getRepository(Pin)
         let pins = pinRepo.find({loadRelationIds: true})
         if((await pins).length && (await pins).length > 0) {
+            console.log(pins)
             return pins
         }
         return null
