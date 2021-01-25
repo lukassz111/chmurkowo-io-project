@@ -216,9 +216,9 @@ class ApiService {
       "id": id
     };
     var json = await this.post(this.getFunctionUrl(methodUserById), data);
+    print(this.getFunctionUrl(methodUserById));
     String responseString = json.body;
     print(responseString);
-    //print(json.body);
     Map<String, dynamic> userMap = jsonDecode(responseString);
     Map<String, dynamic> userData = userMap["data"]["user"];
     print(userData);

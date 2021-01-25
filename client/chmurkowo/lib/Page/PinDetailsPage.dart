@@ -18,7 +18,9 @@ class PinDetailsPage extends StatefulWidget {
 
 class _PinDetailsPageState extends State<PinDetailsPage> {
   Widget _photo = new CircularProgressIndicator();
-  Widget _info = new CircularProgressIndicator();
+  Widget _info = //Center(
+      new CircularProgressIndicator();
+  //);
   bool loadingPhoto = true;
   bool loadingInfo = true;
   final cardHeight = 400.0;
@@ -48,6 +50,7 @@ class _PinDetailsPageState extends State<PinDetailsPage> {
       apiService.getUserById(widget.pin.getUserId()).then((user) {
         print(user);
         if (user != null) {
+          print("user wczytany");
           this.user = user;
           print(user);
           _info = Text(
