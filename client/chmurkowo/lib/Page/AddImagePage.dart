@@ -21,8 +21,10 @@ class _AddImagePageState extends State<AddImagePage> {
   Function() callbackSubmit = null;
 
   void callbackSubmitWhenValid() {
+    setState(() {
+      this.callbackSubmit = null;
+    });
     LocationService locationService = new LocationService();
-    this.callbackSubmit = null;
     apiService.addPin(this.pathToImage, this.location).then((x) {
       print(x);
       var success = x['success'];

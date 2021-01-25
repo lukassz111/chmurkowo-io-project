@@ -11,6 +11,7 @@ class DrawerWidget extends StatefulWidget {
 
 class _DrawerWidgetState extends State<DrawerWidget> {
   AuthService authService = new AuthService();
+
   @override
   Widget build(BuildContext context) {
     return new Drawer(
@@ -30,7 +31,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         ListTile(
           title: Text("Dodaj zdjęcie"),
           onTap: () {
-            Navigator.of(context).pushNamed("/add_image");
+            Navigator.of(context).pushNamed("/add_image").then((value) {
+              // print("back");
+            });
           },
         )
       ],

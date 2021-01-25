@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'Page/MapPage.dart';
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AuthService authService = new AuthService();
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      navigatorObservers: [routeObserver],
+      title: 'Chmurkowo',
       theme: ThemeData(
         // This is the theme of your application.
         //
