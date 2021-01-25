@@ -46,11 +46,14 @@ class PinService {
         await imageService.save(base64dataOfImage,filename)
         //imageUrl musi byc URLem do naszego zdjecia
         let imageUrl = imageService.getUrl(filename);
-        console.log(imageUrl);
         
-        if(!skipCognitiveService) {
-            let isACloud = CognitiveService.recognizeImageAsCloud(imageUrl);
-            console.log(`isACloud: ${isACloud}`);
+        //if(!skipCognitiveService) {
+            //imageUrl = "https://chmurkowo.azurewebsites.net/api/GetImage?code=lGt5C2sI49Q5rW4qRK9TpDK2ybnGXkalckkiCAdzKw1F0cVzgfearg==&i=img_4_ea61a19562082c5b30491ad1ef90d2b1.png";
+            
+            console.log(imageUrl);
+            let isACloud = await CognitiveService.recognizeImageAsCloud(imageUrl);
+            console.info(`isACloud: ${isACloud}`);
+            console.warn(`isACloud: ${isACloud}`);
             if(!isACloud){
                 return {
                     result: false,
@@ -58,7 +61,7 @@ class PinService {
                     errorCode: ErrorCodes.AddPinImageDoNotRepresentCloud
                 }
             }
-        }
+        //}
 
         user.lastPhotoTimestamp = currentTimestamp
         user.resetPhotosLeft()

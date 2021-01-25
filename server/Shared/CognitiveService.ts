@@ -40,19 +40,29 @@ class _CognitiveService {
 
     public async recognizeImageRaw(imageUrl: string): Promise<CognitiveServiceResponse> {
         let json = JSON.stringify({"url":imageUrl});
-        let response = await axios.post(this.uriBase,json,{
-            headers: {
+        return axios.post(this.uriBase,json,{
+            headers: { 
                 'Content-Type': 'application/json',
                 'Ocp-Apim-Subscription-Key' : this.subscriptionKey
             },
         })
-        let categories = response.data.categories;
-        let r: CognitiveServiceResponse = {
-            imageUrl:imageUrl,
-            categories:categories
-        };
-        console.log(JSON.stringify(r));
-        return r;
+        .then((response)=>{
+            let categories = response.data.categories;
+            let r: CognitiveServiceResponse = {
+                imageUrl:imageUrl,
+                categories:categories
+            };
+            console.log(JSON.stringify(r));
+            return r;
+        },(reason)=>{
+            console.warn(JSON.stringify(reason));
+            let r: CognitiveServiceResponse = {
+                imageUrl:imageUrl,
+                categories: []
+            }
+            console.log(JSON.stringify(r));
+            return r;
+        })
     }
     public async recognizeImageAsCloud(imageUrl: string): Promise<boolean> {
         let r = await this.recognizeImageRaw(imageUrl)
